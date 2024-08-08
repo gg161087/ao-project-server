@@ -109,72 +109,31 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'Argentum Online 0.12.2
-'Copyright (C) 2002 Marquez Pablo Ignacio
-'
-'This program is free software; you can redistribute it and/or modify
-'it under the terms of the Affero General Public License;
-'either version 1 of the License, or any later version.
-'
-'This program is distributed in the hope that it will be useful,
-'but WITHOUT ANY WARRANTY; without even the implied warranty of
-'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-'Affero General Public License for more details.
-'
-'You should have received a copy of the Affero General Public License
-'along with this program; if not, you can find it at http://www.affero.org/oagpl.html
-'
-'Argentum Online is based on Baronsoft's VB6 Online RPG
-'You can contact the original creator of ORE at aaron@baronsoft.com
-'for more information about ORE please visit http://www.baronsoft.com/
-'
-'
-'You can contact me at:
-'morgolock@speedy.com.ar
-'www.geocities.com/gmorgolock
-'Calle 3 numero 983 piso 7 dto A
-'La Plata - Pcia, Buenos Aires - Republica Argentina
-'Codigo Postal 1900
-'Pablo Ignacio Marquez
-
 Option Explicit
 
 Private Sub Command1_Click()
     Unload Me
-
 End Sub
 
 Private Sub Command2_Click()
-
     List1.Clear
-
     Dim c As Integer
-
     Dim i As Integer
-
     For i = 1 To MaxUsers
         List1.AddItem "UserIndex " & i & " -- " & UserList(i).ConnID
-
         If UserList(i).ConnID <> -1 Then c = c + 1
     Next i
-
     If c = MaxUsers Then
         Label1.Caption = "No hay slots vacios!"
     Else
         Label1.Caption = "Hay " & MaxUsers - c & " slots vacios!"
-
     End If
-
 End Sub
 
 Private Sub Command3_Click()
-
     Dim i As Integer
-
     For i = 1 To MaxUsers
-
         If UserList(i).ConnID <> -1 And UserList(i).ConnIDValida And Not UserList(i).flags.UserLogged Then Call CloseSocket(i)
     Next i
-
 End Sub
 

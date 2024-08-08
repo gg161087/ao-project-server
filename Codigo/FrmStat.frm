@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "COMCTL32.OCX"
+Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0"; "comctl32.ocx"
 Begin VB.Form FrmStat 
    BackColor       =   &H00C0C0C0&
    BorderStyle     =   3  'Fixed Dialog
@@ -54,32 +54,4 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'Argentum Online 0.12.2
-'Copyright (C) 2002 Marquez Pablo Ignacio
-'
-'This program is free software; you can redistribute it and/or modify
-'it under the terms of the Affero General Public License;
-'either version 1 of the License, or any later version.
-'
-'This program is distributed in the hope that it will be useful,
-'but WITHOUT ANY WARRANTY; without even the implied warranty of
-'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-'Affero General Public License for more details.
-'
-'You should have received a copy of the Affero General Public License
-'along with this program; if not, you can find it at http://www.affero.org/oagpl.html
-'
-'Argentum Online is based on Baronsoft's VB6 Online RPG
-'You can contact the original creator of ORE at aaron@baronsoft.com
-'for more information about ORE please visit http://www.baronsoft.com/
-'
-'
-'You can contact me at:
-'morgolock@speedy.com.ar
-'www.geocities.com/gmorgolock
-'Calle 3 numero 983 piso 7 dto A
-'La Plata - Pcia, Buenos Aires - Republica Argentina
-'Codigo Postal 1900
-'Pablo Ignacio Marquez
-
 Option Explicit

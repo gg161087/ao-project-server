@@ -273,34 +273,6 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'Argentum Online 0.12.2
-'Copyright (C) 2002 Marquez Pablo Ignacio
-'
-'This program is free software; you can redistribute it and/or modify
-'it under the terms of the Affero General Public License;
-'either version 1 of the License, or any later version.
-'
-'This program is distributed in the hope that it will be useful,
-'but WITHOUT ANY WARRANTY; without even the implied warranty of
-'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-'Affero General Public License for more details.
-'
-'You should have received a copy of the Affero General Public License
-'along with this program; if not, you can find it at http://www.affero.org/oagpl.html
-'
-'Argentum Online is based on Baronsoft's VB6 Online RPG
-'You can contact the original creator of ORE at aaron@baronsoft.com
-'for more information about ORE please visit http://www.baronsoft.com/
-'
-'
-'You can contact me at:
-'morgolock@speedy.com.ar
-'www.geocities.com/gmorgolock
-'Calle 3 numero 983 piso 7 dto A
-'La Plata - Pcia, Buenos Aires - Republica Argentina
-'Codigo Postal 1900
-'Pablo Ignacio Marquez
-
 Option Explicit
 
 Private Sub cmdRecargarClanes_Click()
@@ -308,34 +280,23 @@ Private Sub cmdRecargarClanes_Click()
 End Sub
 
 Private Sub Form_Load()
-
     cmdResetSockets.Visible = True
     cmdResetListen.Visible = True
-    
-    'Listamos el contenido de la carpeta Dats
     Dim sFilename As String
         sFilename = Dir$(DatPath)
-    
     Do While sFilename > vbNullString
-    
       Call listDats.AddItem(sFilename)
       sFilename = Dir$()
-    
     Loop
-  
 End Sub
 
 Private Sub cmdForzarCierre_Click()
-        
     If MsgBox("Desea FORZAR el CIERRE del SERVIDOR?", vbYesNo, "CIERRE DEL SERVIDOR!!!") = vbNo Then Exit Sub
-        
     Call CloseServer
-
 End Sub
 
 Private Sub cmdCerrar_Click()
     frmServidor.Visible = False
-
 End Sub
 
 Private Sub cmdCharBackup_Click()
@@ -344,7 +305,6 @@ Private Sub cmdCharBackup_Click()
     Call GuardarUsuarios
     Me.MousePointer = 0
     MsgBox "Grabado de personajes OK!"
-
 End Sub
 
 Private Sub cmdConfigIntervalos_Click()
@@ -354,54 +314,39 @@ End Sub
 
 Private Sub cmdDebugNpcs_Click()
     frmDebugNpc.Show
-
 End Sub
 
 Private Sub cmdDebugUserlist_Click()
     frmUserList.Show
-
 End Sub
 
 Private Sub cmdLoadWorldBackup_Click()
-
-    'Se asegura de que los sockets estan cerrados e ignora cualquier err
     On Error Resume Next
-
     If frmMain.Visible Then frmMain.txtStatus.Text = "Reiniciando."
-    
     FrmStat.Show
-    
     If FileExist(App.Path & "\logs\errores.log", vbNormal) Then Kill App.Path & "\logs\errores.log"
     If FileExist(App.Path & "\logs\connect.log", vbNormal) Then Kill App.Path & "\logs\Connect.log"
     If FileExist(App.Path & "\logs\HackAttemps.log", vbNormal) Then Kill App.Path & "\logs\HackAttemps.log"
     If FileExist(App.Path & "\logs\Asesinatos.log", vbNormal) Then Kill App.Path & "\logs\Asesinatos.log"
     If FileExist(App.Path & "\logs\Resurrecciones.log", vbNormal) Then Kill App.Path & "\logs\Resurrecciones.log"
     If FileExist(App.Path & "\logs\Teleports.Log", vbNormal) Then Kill App.Path & "\logs\Teleports.Log"
-
     Call apiclosesocket(SockListen)
-
     Dim LoopC As Integer
     For LoopC = 1 To MaxUsers
         Call CloseSocket(LoopC)
     Next
-    
     LastUser = 0
     NumUsers = 0
-    
     Call FreeNPCs
     Call FreeCharIndexes
-    
     Call LoadSini
     Call CargarBackUp
     Call LoadOBJData
-
     SockListen = ListenForConnect(Puerto, hWndMsg, vbNullString)
-
     If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Reiniciando Terminado. Escuchando conexiones entrantes ..."
 End Sub
 
 Private Sub cmdPausarServidor_Click()
-
     If EnPausa = False Then
         EnPausa = True
         Call SendData(SendTarget.ToAll, 0, PrepareMessagePauseToggle())
@@ -410,9 +355,7 @@ Private Sub cmdPausarServidor_Click()
         EnPausa = False
         Call SendData(SendTarget.ToAll, 0, PrepareMessagePauseToggle())
         cmdPausarServidor.Caption = "Pausar el servidor"
-
     End If
-
 End Sub
 
 Private Sub cmdRecargarServerIni_Click()
@@ -420,152 +363,103 @@ Private Sub cmdRecargarServerIni_Click()
 End Sub
 
 Private Sub cmdReiniciar_Click()
-
     If MsgBox("Atencion!! Si reinicia el servidor puede provocar la perdida de datos de los usarios. " & "Desea reiniciar el servidor de todas maneras?", vbYesNo) = vbNo Then Exit Sub
-    
     Me.Visible = False
     Call General.Restart
-
 End Sub
 
 Private Sub cmdResetListen_Click()
-
-    'Cierra el socket de escucha
     If SockListen >= 0 Then Call apiclosesocket(SockListen)
-    
-    'Inicia el socket de escucha
     SockListen = ListenForConnect(Puerto, hWndMsg, vbNullString)
-
 End Sub
 
 Private Sub cmdResetSockets_Click()
-
     If MsgBox("Esta seguro que desea reiniciar los sockets? Se cerraran todas las conexiones activas.", vbYesNo, "Reiniciar Sockets") = vbYes Then
         Call WSApiReiniciarSockets
     End If
-
 End Sub
 
 Private Sub cmdStatsSlots_Click()
     frmConID.Show
-
 End Sub
 
 Private Sub cmdUnbanAll_Click()
-
     On Error Resume Next
-
     Dim Fn       As String
     Dim cad$
     Dim n        As Integer, K As Integer
     Dim sENtrada As String
-    
     sENtrada = InputBox("Escribe ""estoy DE acuerdo"" entre comillas y con distincion de mayusculas minusculas para desbanear a todos los personajes.", "UnBan", "hola")
-
     If sENtrada = "estoy DE acuerdo" Then
-    
         Fn = App.Path & "\logs\GenteBanned.log"
-        
         If FileExist(Fn, vbNormal) Then
             n = FreeFile
             Open Fn For Input Shared As #n
-
             Do While Not EOF(n)
                 K = K + 1
                 Input #n, cad$
                 Call UnBan(cad$)
-                
             Loop
             Close #n
             MsgBox "Se han habilitado " & K & " personajes."
             Kill Fn
-
         End If
-
     End If
-
 End Sub
 
 Private Sub cmdUnbanAllIps_Click()
-
     Dim i        As Long, n As Long
     Dim sENtrada As String
-    
     sENtrada = InputBox("Escribe ""estoy DE acuerdo"" sin comillas y con distincion de mayusculas minusculas para desbanear a todos los personajes", "UnBan", "hola")
-
     If sENtrada = "estoy DE acuerdo" Then
-        
         n = BanIps.Count
-
         For i = 1 To BanIps.Count
             Call BanIpQuita(BanIps(i))
         Next i
-        
         MsgBox "Se han habilitado " & n & " ipes"
-
     End If
-
 End Sub
 
 Private Sub cmdVerTrafico_Click()
     frmTrafic.Show
-
 End Sub
 
 Private Sub cmdWorldBackup_Click()
-
-    On Error GoTo ErrHandler
-
+    On Error GoTo ErrorHandler
     Me.MousePointer = 11
     FrmStat.Show
     Call ES.DoBackUp
     Me.MousePointer = 0
     MsgBox "WORLDSAVE OK!!"
-    
     Exit Sub
-
-ErrHandler:
+ErrorHandler:
     Call LogError("Error en WORLDSAVE")
-
 End Sub
 
 Private Sub cmdRecargarGuardiasPosOrig_Click()
-
-    On Error GoTo ErrHandler
-
+    On Error GoTo ErrorHandler
     ReSpawnOrigPosNpcs
     Exit Sub
-
-ErrHandler:
+ErrorHandler:
     Call LogError("Error en cmdRecargarGuardiasPosOrig")
-
 End Sub
-
 
 Private Sub Form_Deactivate()
     frmServidor.Visible = False
-
 End Sub
 
 Private Sub frmAdministracion_Click()
     Me.Visible = False
     frmAdmin.Show
-
 End Sub
 
 Private Sub cmdRecargarAdministradores_Click()
     Call loadAdministrativeUsers
-
 End Sub
 
 Private Sub listDats_Click()
-    
-    'Chequeamos si hay algun item seleccionado.
-    'Lo pongo para prevenir errores.
     If listDats.ListIndex < 0 Then Exit Sub
-    
     Select Case UCase$(listDats.Text)
-        
         Case "APUESTAS.DAT"
             Call CargaApuestas
             
@@ -619,7 +513,5 @@ Private Sub listDats_Click()
             
         Case Else
             Exit Sub
-            
     End Select
-    
 End Sub

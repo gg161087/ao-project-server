@@ -13,10 +13,6 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-' clsTrickSubclass2.cls - class for window subclassing
-' © Krivous Anatolii Anatolevich (The trick), 2015-2016
-' Version 2.2
-
 Private Type PROCESS_HEAP_ENTRY
     lpData              As Long
     cbData              As Long
@@ -69,66 +65,56 @@ Private mSelf           As clsSubclass
 Dim hHeap   As Long
 Dim lpAsm   As Long
 
-' Return a window handle
 Public Property Get hWnd() As Long
     hWnd = mhWnd
 End Property
-' Subclassing state (True - subclassing on)
+
 Public Property Get IsSubclassed() As Boolean
     IsSubclassed = mIsSubclassed
 End Property
-' Pause subclassing
+
 Public Function PauseSubclass() As Boolean
     If mIsSubclassed And Not mIsPaused Then mIsPaused = True: PauseSubclass = True
 End Function
-' Resume
+
 Public Function ResumeSubclass() As Boolean
     If mIsSubclassed And mIsPaused Then mIsPaused = False: ResumeSubclass = True
 End Function
-' If pause then return True
+
 Public Property Get IsPaused() As Boolean
     IsPaused = mIsPaused
 End Property
-' Set subclassing to window (if subclassing already enabled then remove it)
-Public Function Hook(ByVal hWnd As Long) As Boolean
 
+Public Function Hook(ByVal hWnd As Long) As Boolean
     If mIsSubclassed Then
         If Not UnHook Then Exit Function
     End If
-    
     If CreateAsm Then
-        
         mIsSubclassed = SetWindowSubclass(hWnd, lpAsm, ObjPtr(Me), 0)
-        
         If mIsSubclassed Then
             Hook = True
             mhWnd = hWnd
         End If
-        
     End If
-    
 End Function
-' Remove subclassing
+
 Public Function UnHook() As Boolean
     If Not mIsSubclassed Then Exit Function
     UnHook = RemoveWindowSubclass(mhWnd, lpAsm, ObjPtr(Me))
     If UnHook Then mhWnd = 0: mIsSubclassed = False
 End Function
-' Call default procedure
+
 Public Function CallDef(ByVal hWnd As Long, ByVal Msg As Long, ByVal wParam As Long, ByVal lParam As Long, ByRef Status As Boolean) As Long
     If Not mIsSubclassed Then Exit Function
     CallDef = DefSubclassProc(hWnd, Msg, wParam, lParam)
     Status = True
 End Function
 
-' --------------------------------------------------------------------------------------------------------------------------------------
 Private Function SUBCLASSPROC(ByVal hWnd As Long, ByVal Msg As Long, ByVal wParam As Long, ByVal lParam As Long, ByVal uIdSubclass As Long, ByVal dwRefData As Long) As Long
     Dim inIDE   As Boolean
     Dim retAddr As Long
     Dim addr    As Long
-    
     mDepth = mDepth + 1
-    
     If mIsPaused Then
         SUBCLASSPROC = DefSubclassProc(hWnd, Msg, wParam, lParam)
     Else
@@ -137,11 +123,8 @@ Private Function SUBCLASSPROC(ByVal hWnd As Long, ByVal Msg As Long, ByVal wPara
         RaiseEvent WndProc(hWnd, Msg, wParam, lParam, SUBCLASSPROC, DefCall)
         If DefCall Then SUBCLASSPROC = DefSubclassProc(hWnd, Msg, wParam, lParam)
     End If
-     
     mDepth = mDepth - 1
-    
     Debug.Assert MakeTrue(inIDE)
-    
     If inIDE Then
         Dim refDat  As Long
         GetMem4 ByVal ObjPtr(Me) + 8, refDat
@@ -154,19 +137,14 @@ Private Function SUBCLASSPROC(ByVal hWnd As Long, ByVal Msg As Long, ByVal wPara
         If mTerminateFlag And mDepth = 0 Then
             addr = VarPtr(hWnd) + &H20
             GetMem4 ByVal addr, ByVal addr - &H28
-            ' // Clean
             Call Class_Terminate
         End If
     End If
-    
 End Function
 
 Private Sub Class_Terminate()
-
     If hHeap = 0 Then Exit Sub
-    
     UnHook
-    
     If mDepth Then
         Set mSelf = Me
         mTerminateFlag = True
@@ -180,20 +158,17 @@ Private Sub Class_Terminate()
         End If
         Set mSelf = Nothing
     End If
-    
 End Sub
+
 Private Function CreateAsm() As Boolean
     Dim inIDE   As Boolean
     Dim AsmSize As Long
     Dim ptr     As Long
     Dim isFirst As Boolean
-
     Debug.Assert MakeTrue(inIDE)
-    
     If lpAsm = 0 Then
         If inIDE Then AsmSize = &H5E Else AsmSize = &H1D
         hHeap = GetPrevHeap()
-        
         If hHeap Then
             If inIDE Then
                 Dim flag    As Long
@@ -206,45 +181,36 @@ Private Function CreateAsm() As Boolean
             End If
         Else: isFirst = True
         End If
-        
         If isFirst Then
             hHeap = HeapCreate(HEAP_CREATE_ENABLE_EXECUTE Or HEAP_NO_SERIALIZE, 0, 0)
-            If hHeap = 0 Then Err.raise 7: Exit Function
-            If Not SaveCurHeap() Then HeapDestroy hHeap: hHeap = 0: Err.raise 7: Exit Function
+            If hHeap = 0 Then Err.Raise 7: Exit Function
+            If Not SaveCurHeap() Then HeapDestroy hHeap: hHeap = 0: Err.Raise 7: Exit Function
             AsmSize = AsmSize + &H4
         End If
-        
         lpAsm = HeapAlloc(hHeap, HEAP_NO_SERIALIZE Or HEAP_ZERO_MEMORY, AsmSize)
-        
         If lpAsm = 0 Then
             If isFirst Then HeapDestroy hHeap
             hHeap = 0
-            Err.raise 7
+            Err.Raise 7
             Exit Function
         End If
-        
         Dim prv As Long
         Dim i   As Long
-        
         If inIDE Then
             If isFirst Then
                 GetMem4 0&, ByVal lpAsm
                 lpAsm = lpAsm + 4
             End If
         End If
-        
     End If
-    
     ptr = lpAsm
-    
     If inIDE Then
         CreateIDEStub (ptr): ptr = ptr + &H40
     End If
-    
     CreateStackConv ptr
     CreateAsm = True
-    
 End Function
+
 Private Function GetFlagPointer() As Long
     Dim he  As PROCESS_HEAP_ENTRY
     HeapLock hHeap
@@ -276,17 +242,13 @@ End Function
 Private Function CreateStackConv(ByVal ptr As Long) As Boolean
     Dim lpMeth      As Long
     Dim vTable      As Long
-    
     GetMem4 ByVal ObjPtr(Me), vTable
     GetMem4 ByVal vTable + WNDPROCINDEX * 4 + &H1C, lpMeth
-    
     GetMem4 &H5450C031, ByVal ptr + &H0:    GetMem4 &H488DE409, ByVal ptr + &H4:    GetMem4 &H2474FF06, ByVal ptr + &H8
     GetMem4 &H68FAE020, ByVal ptr + &HC:    GetMem4 &H12345678, ByVal ptr + &H10:   GetMem4 &HFFFFE7E8, ByVal ptr + &H14
     GetMem4 &H18C258FF, ByVal ptr + &H18:   GetMem4 &H0, ByVal ptr + &H1C
-
-    GetMem4 ObjPtr(Me), ByVal ptr + &H10                    ' Push Me
-    GetMem4 lpMeth - (ptr + &H14) - 5, ByVal ptr + &H14 + 1 ' Call SUBCLASSPROC
-    
+    GetMem4 ObjPtr(Me), ByVal ptr + &H10
+    GetMem4 lpMeth - (ptr + &H14) - 5, ByVal ptr + &H14 + 1
 End Function
  
 Private Function CreateIDEStub(ByVal ptr As Long) As Boolean
@@ -295,7 +257,6 @@ Private Function CreateIDEStub(ByVal ptr As Long) As Boolean
     Dim hComctl32   As Long
     Dim lpDefProc   As Long
     Dim lpRemove    As Long
-    
     hInstVB6 = GetModuleHandle(StrPtr("vba6"))
     If hInstVB6 = 0 Then Exit Function
     hComctl32 = GetModuleHandle(StrPtr("Comctl32"))
@@ -303,28 +264,25 @@ Private Function CreateIDEStub(ByVal ptr As Long) As Boolean
         hComctl32 = LoadLibrary(StrPtr("Comctl32"))
         If hComctl32 = 0 Then Exit Function
     End If
-    
     lpEbMode = GetProcAddress(hInstVB6, "EbMode")
     If lpEbMode = 0 Then Exit Function
     lpDefProc = GetProcAddress(hComctl32, "DefSubclassProc")
     If lpDefProc = 0 Then Exit Function
     lpRemove = GetProcAddress(hComctl32, "RemoveWindowSubclass")
     If lpRemove = 0 Then Exit Function
-    
     GetMem4 &HFFFFFBE8, ByVal ptr + &H0:    GetMem4 &H74C084FF, ByVal ptr + &H4:    GetMem4 &H74013C1C, ByVal ptr + &H8
     GetMem4 &H2474FF33, ByVal ptr + &HC:    GetMem4 &H2474FF10, ByVal ptr + &H10:   GetMem4 &H2474FF10, ByVal ptr + &H14
     GetMem4 &H2474FF10, ByVal ptr + &H18:   GetMem4 &HFFDEE810, ByVal ptr + &H1C:   GetMem4 &H18C2FFFF, ByVal ptr + &H20
     GetMem4 &HDFF00, ByVal ptr + &H24:      GetMem4 &H68000000, ByVal ptr + &H28:   GetMem4 &H12345678, ByVal ptr + &H2C
     GetMem4 &H34567868, ByVal ptr + &H30:   GetMem4 &H2474FF12, ByVal ptr + &H34:   GetMem4 &HFFC2E80C, ByVal ptr + &H38
     GetMem4 &HCDEBFFFF, ByVal ptr + &H3C:
-
-    GetMem4 lpEbMode - ptr - 5, ByVal ptr + 1 + 0                   ' Call EbMode
-    GetMem4 lpDefProc - (ptr + &H1D) - 5, ByVal ptr + &H1D + 1      ' Call DefSubclassProc
-    GetMem4 lpRemove - (ptr + &H39) - 5, ByVal ptr + &H39 + 1       ' Call RemoveWindowSubclass
-    GetMem4 ObjPtr(Me), ByVal ptr + &H2C                            ' Push uIdSubclass
-    GetMem4 ptr, ByVal ptr + &H31                                   ' Push pfnSubclass
-    GetMem4 GetFlagPointer(), ByVal ptr + &H27                      ' dec dword [flag]
-    
+    GetMem4 lpEbMode - ptr - 5, ByVal ptr + 1 + 0
+    GetMem4 lpDefProc - (ptr + &H1D) - 5, ByVal ptr + &H1D + 1
+    GetMem4 lpRemove - (ptr + &H39) - 5, ByVal ptr + &H39 + 1
+    GetMem4 ObjPtr(Me), ByVal ptr + &H2C
+    GetMem4 ptr, ByVal ptr + &H31
+    GetMem4 GetFlagPointer(), ByVal ptr + &H27
     CreateIDEStub = True
 End Function
+
 Private Function MakeTrue(Value As Boolean) As Boolean: Value = True: MakeTrue = True: End Function

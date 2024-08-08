@@ -1,8 +1,8 @@
 VERSION 5.00
-Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "MSINET.ocx"
+Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "MSINET.OCX"
 Begin VB.Form frmMain 
    BackColor       =   &H00FFC0C0&
-   BorderStyle     =   3  'Fixed Dialog
+   BorderStyle     =   1  'Fixed Single
    Caption         =   "Argentum Online"
    ClientHeight    =   6975
    ClientLeft      =   1950
@@ -444,46 +444,15 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'Argentum Online 0.12.2
-'Copyright (C) 2002 Marquez Pablo Ignacio
-'
-'This program is free software; you can redistribute it and/or modify
-'it under the terms of the Affero General Public License;
-'either version 1 of the License, or any later version.
-'
-'This program is distributed in the hope that it will be useful,
-'but WITHOUT ANY WARRANTY; without even the implied warranty of
-'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-'Affero General Public License for more details.
-'
-'You should have received a copy of the Affero General Public License
-'along with this program; if not, you can find it at http://www.affero.org/oagpl.html
-'
-'Argentum Online is based on Baronsoft's VB6 Online RPG
-'You can contact the original creator of ORE at aaron@baronsoft.com
-'for more information about ORE please visit http://www.baronsoft.com/
-'
-'
-'You can contact me at:
-'morgolock@speedy.com.ar
-'www.geocities.com/gmorgolock
-'Calle 3 numero 983 piso 7 dto A
-'La Plata - Pcia, Buenos Aires - Republica Argentina
-'Codigo Postal 1900
-'Pablo Ignacio Marquez
-
 Option Explicit
 
 Private Const SIZE_RCVBUF As Long = 8192
 Private Const SIZE_SNDBUF As Long = 8192
-
 Public WithEvents WinsockThread As clsSubclass
 Attribute WinsockThread.VB_VarHelpID = -1
-
 Public ESCUCHADAS As Long
 
 Private Type NOTIFYICONDATA
-
     cbSize As Long
     hWnd As Long
     uID As Long
@@ -491,44 +460,23 @@ Private Type NOTIFYICONDATA
     uCallbackMessage As Long
     hIcon As Long
     szTip As String * 64
-
 End Type
    
 Const NIM_ADD = 0
-
 Const NIM_DELETE = 2
-
 Const NIF_MESSAGE = 1
-
 Const NIF_ICON = 2
-
 Const NIF_TIP = 4
-
 Const WM_MOUSEMOVE = &H200
-
 Const WM_LBUTTONDBLCLK = &H203
-
 Const WM_RBUTTONUP = &H205
-
 Const CANTIDAD_MINUTOS_NUEVA_LLUVIA_EN_JUEGO = 65
 
-Private Declare Function GetWindowThreadProcessId _
-                Lib "user32" (ByVal hWnd As Long, _
-                              lpdwProcessId As Long) As Long
+Private Declare Function GetWindowThreadProcessId Lib "user32" (ByVal hWnd As Long, lpdwProcessId As Long) As Long
+Private Declare Function Shell_NotifyIconA Lib "SHELL32" (ByVal dwMessage As Long, lpData As NOTIFYICONDATA) As Integer
 
-Private Declare Function Shell_NotifyIconA _
-                Lib "SHELL32" (ByVal dwMessage As Long, _
-                               lpData As NOTIFYICONDATA) As Integer
-
-Private Function setNOTIFYICONDATA(hWnd As Long, _
-                                   ID As Long, _
-                                   flags As Long, _
-                                   CallbackMessage As Long, _
-                                   Icon As Long, _
-                                   Tip As String) As NOTIFYICONDATA
-
+Private Function setNOTIFYICONDATA(hWnd As Long, ID As Long, flags As Long, CallbackMessage As Long, Icon As Long, Tip As String) As NOTIFYICONDATA
     Dim nidTemp As NOTIFYICONDATA
-
     nidTemp.cbSize = Len(nidTemp)
     nidTemp.hWnd = hWnd
     nidTemp.uID = ID
@@ -536,62 +484,38 @@ Private Function setNOTIFYICONDATA(hWnd As Long, _
     nidTemp.uCallbackMessage = CallbackMessage
     nidTemp.hIcon = Icon
     nidTemp.szTip = Tip & Chr$(0)
-
     setNOTIFYICONDATA = nidTemp
-
 End Function
 
 Sub CheckIdleUser()
-
     Dim iUserIndex As Long
-    
     For iUserIndex = 1 To MaxUsers
-
         With UserList(iUserIndex)
-
-            'Conexion activa? y es un usuario loggeado?
             If .ConnID <> -1 And .flags.UserLogged Then
-
-                'Actualiza el contador de inactividad
                 If .flags.Traveling = 0 Then
                     .Counters.IdleCount = .Counters.IdleCount + 1
-
                 End If
-                
                 If Not EsGm(iUserIndex) Then
                     If .Counters.IdleCount >= IdleLimit Then
                         Call WriteShowMessageBox(iUserIndex, "Demasiado tiempo inactivo. Has sido desconectado.")
-
-                        'mato los comercios seguros
                         If .ComUsu.DestUsu > 0 Then
                             If UserList(.ComUsu.DestUsu).flags.UserLogged Then
                                 If UserList(.ComUsu.DestUsu).ComUsu.DestUsu = iUserIndex Then
                                     Call WriteConsoleMsg(.ComUsu.DestUsu, "Comercio cancelado por el otro usuario.", FontTypeNames.FONTTYPE_TALK)
                                     Call FinComerciarUsu(.ComUsu.DestUsu)
-
                                 End If
-
                             End If
-
                             Call FinComerciarUsu(iUserIndex)
-
                         End If
-
                         Call Cerrar_Usuario(iUserIndex)
-
                     End If
-
                 End If
-
             End If
-
         End With
-
     Next iUserIndex
-
 End Sub
 
-Public Sub UpdateNpcsExp(ByVal Multiplicador As Single) ' 0.13.5
+Public Sub UpdateNpcsExp(ByVal Multiplicador As Single)
     Dim NpcIndex As Long
     For NpcIndex = 1 To LastNPC
         With Npclist(NpcIndex)
@@ -604,64 +528,45 @@ End Sub
 Private Sub HappyHourManager()
     If iniHappyHourActivado = True Then
         Dim tmpHappyHour As Double
-    
-        ' HappyHour
-        Dim iDay As Integer ' 0.13.5
+        Dim iDay As Integer
         Dim Message As String
-
         iDay = Weekday(Date)
         tmpHappyHour = HappyHourDays(iDay).Multi
-         
-        If tmpHappyHour <> HappyHour Then ' 0.13.5
+        If tmpHappyHour <> HappyHour Then
             If HappyHourActivated Then
-                ' Reestablece la exp de los npcs
                 If HappyHour <> 0 Then Call UpdateNpcsExp(1 / HappyHour)
             End If
-           
-            If tmpHappyHour = 1 Then ' Desactiva
+            If tmpHappyHour = 1 Then
                 Message = "Ha concluido la Happy Hour!"
                 Call SendData(SendTarget.ToAll, 0, PrepareMessageConsoleMsg(Message, FontTypeNames.FONTTYPE_SERVER))
                 HappyHourActivated = False
-
                 If ConexionAPI Then
                     Call ApiEndpointSendHappyHourEndedMessageDiscord(Message)
                 End If
-           
-            Else ' Activa?
-                If HappyHourDays(iDay).Hour = Hour(Now) And tmpHappyHour > 0 Then ' GSZAO - Es la hora pautada?
+            Else
+                If HappyHourDays(iDay).Hour = Hour(Now) And tmpHappyHour > 0 Then
                     UpdateNpcsExp tmpHappyHour
-                    
                     If HappyHour <> 1 Then
                         Message = "Se ha modificado la Happy Hour, a partir de ahora las criaturas aumentan su experiencia en un " & Round((tmpHappyHour - 1) * 100, 2) & "%"
                         Call SendData(SendTarget.ToAll, 0, PrepareMessageConsoleMsg(Message, FontTypeNames.FONTTYPE_SERVER))
-
                         If ConexionAPI Then
                             Call ApiEndpointSendHappyHourModifiedMessageDiscord(Message)
                         End If
                     Else
                         Message = "Ha comenzado la Happy Hour! Las criaturas aumentan su experiencia en un " & Round((tmpHappyHour - 1) * 100, 2) & "%!"
-
-                       Call SendData(SendTarget.ToAll, 0, PrepareMessageConsoleMsg(Message, FontTypeNames.FONTTYPE_SERVER))
-                    
-                        'Aqui solo vamos a hacer un request a los endpoints de la aplicacion en Node.js
-                        'el repositorio para hacer funcionar esto, es este: https://github.com/ao-libre/ao-api-server
-                        'Si no tienen interes en usarlo pueden desactivarlo en el Server.ini
+                        Call SendData(SendTarget.ToAll, 0, PrepareMessageConsoleMsg(Message, FontTypeNames.FONTTYPE_SERVER))
                         If ConexionAPI Then
                             Call ApiEndpointSendHappyHourStartedMessageDiscord(Message)
                         End If
-
                     End If
-                    
                     HappyHourActivated = True
                 Else
-                    HappyHourActivated = False ' GSZAO
+                    HappyHourActivated = False
                 End If
             End If
-         
             HappyHour = tmpHappyHour
         End If
     Else
-        ' Si estaba activado, lo deshabilitamos
         If HappyHour <> 0 Then
             Call UpdateNpcsExp(1 / HappyHour)
             Call SendData(SendTarget.ToAll, 0, PrepareMessageConsoleMsg("Ha concluido la Happy Hour!", FontTypeNames.FONTTYPE_SERVER))
@@ -676,246 +581,155 @@ Private Sub Auditoria_Timer()
 End Sub
 
 Private Sub AutoSave_Timer()
-
-    On Error GoTo errHandler
-
-    'fired every minute
+    On Error GoTo ErrorHandler
     Static Minutos          As Long
-
     Static MinutosLatsClean As Long
-
     Static MinsPjesSave     As Long
-
     Static MinsEventoPesca  As Long
-
     MinsEventoPesca = MinsEventoPesca + 1
     Minutos = Minutos + 1
     MinsPjesSave = MinsPjesSave + 1
-
     Call HappyHourManager
-    
-    'Actualizamos el Centinela en caso de que este activo en el server.ini
     If isCentinelaActivated Then
         Call modCentinela.ChekearUsuarios
     End If
-
-    'Actualizamos la lluvia
     Call tLluviaEvent
-
     If Minutos = MinutosWs - 1 Then
         Call SendData(SendTarget.ToAll, 0, PrepareMessageConsoleMsg("Worldsave en 1 minuto ...", FontTypeNames.FONTTYPE_SERVER))
         KillLog
-
     ElseIf Minutos >= MinutosWs Then
         Call ES.DoBackUp
         Call aClon.VaciarColeccion
         Minutos = 0
-
     End If
-
     If MinsPjesSave = MinutosGuardarUsuarios - 1 Then
         Call SendData(SendTarget.ToAll, 0, PrepareMessageConsoleMsg("CharSave en 1 minuto ...", FontTypeNames.FONTTYPE_SERVER))
     ElseIf MinsPjesSave >= MinutosGuardarUsuarios Then
         Call mdParty.ActualizaExperiencias
         Call GuardarUsuarios
         MinsPjesSave = 0
-
     End If
-
     If MinutosLatsClean >= 15 Then
         MinutosLatsClean = 0
-        Call ReSpawnOrigPosNpcs 'respawn de los guardias en las pos originales
+        Call ReSpawnOrigPosNpcs
     Else
         MinutosLatsClean = MinutosLatsClean + 1
-
     End If
-
     Call CheckEstadoDelMar(MinsEventoPesca)
-
     Call CheckIdleUser
-
     frmMain.lblWorldSave.Caption = "Proximo WorldSave: " & MinutosWs - Minutos & " Minutos"
     frmMain.lblCharSave.Caption = "Proximo CharSave: " & MinutosGuardarUsuarios - MinsPjesSave & " Minutos"
     frmMain.lblRespawnNpcs.Caption = "Respawn Npcs a POS originales: " & 15 - MinutosLatsClean & " Minutos"
-
-    '<<<<<-------- Log the number of users online ------>>>
     Dim n As Integer
-
     n = FreeFile()
     Open App.Path & "\logs\numusers.log" For Output Shared As n
     Print #n, NumUsers
     Close #n
-    '<<<<<-------- Log the number of users online ------>>>
-
     Exit Sub
-
-errHandler:
+ErrorHandler:
     Call LogError("Error en TimerAutoSave " & Err.Number & ": " & Err.description)
-
     Resume Next
-
 End Sub
 
 Private Sub chkServerHabilitado_Click()
     ServerSoloGMs = chkServerHabilitado.Value
-
 End Sub
 
 Private Sub cmdApagarServidor_Click()
-
     If MsgBox("Realmente desea cerrar el servidor?", vbYesNo, "CIERRE DEL SERVIDOR!!!") = vbNo Then Exit Sub
-    
     Me.MousePointer = 11
-    
     FrmStat.Show
-    
-    'WorldSave
     Call ES.DoBackUp
-
-    'commit experiencia
     Call mdParty.ActualizaExperiencias
-
-    'Guardar Pjs
     Call GuardarUsuarios
-
-    'Chauuu
     Unload frmMain
-
     Call CloseServer
-    
 End Sub
 
 Private Sub cmdConfiguracion_Click()
     frmServidor.Visible = True
-
 End Sub
 
 Private Sub CMDDUMP_Click()
-
     On Error Resume Next
-
     Dim i As Integer
-
     For i = 1 To MaxUsers
         Call LogCriticEvent(i & ") ConnID: " & UserList(i).ConnID & ". ConnidValida: " & UserList(i).ConnIDValida & " Name: " & UserList(i).Name & " UserLogged: " & UserList(i).flags.UserLogged)
     Next i
-    
     Call LogCriticEvent("Lastuser: " & LastUser & " NextOpenUser: " & NextOpenUser)
-
 End Sub
 
 Private Sub cmdForzarCierre_Click()
-        
     If MsgBox("Desea FORZAR el CIERRE del SERVIDOR?", vbYesNo, "CIERRE DEL SERVIDOR!!!") = vbNo Then Exit Sub
-        
     Call CloseServer
-
 End Sub
 
 Private Sub cmdSystray_Click()
     SetSystray
-
 End Sub
 
 Private Sub Command1_Click()
     Call SendData(SendTarget.ToAll, 0, PrepareMessageShowMessageBox(BroadMsg.Text))
-    ''''''''''''''''SOLO PARA EL TESTEO'''''''
-    ''''''''''SE USA PARA COMUNICARSE CON EL SERVER'''''''''''
     txtChat.Text = txtChat.Text & vbNewLine & "Servidor> " & BroadMsg.Text
-
 End Sub
 
 Public Sub InitMain(ByVal f As Byte)
-
     If f = 1 Then
         Call SetSystray
     Else
         frmMain.Show
-
     End If
-
 End Sub
 
 Private Sub Command2_Click()
     Call SendData(SendTarget.ToAll, 0, PrepareMessageConsoleMsg("Servidor> " & BroadMsg.Text, FontTypeNames.FONTTYPE_SERVER))
-    ''''''''''''''''SOLO PARA EL TESTEO'''''''
-    ''''''''''SE USA PARA COMUNICARSE CON EL SERVER'''''''''''
     txtChat.Text = txtChat.Text & vbNewLine & "Servidor> " & BroadMsg.Text
-
 End Sub
 
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-
     On Error Resume Next
-   
     If Not Visible Then
-
         Select Case X \ Screen.TwipsPerPixelX
-                
             Case WM_LBUTTONDBLCLK
                 WindowState = vbNormal
                 Visible = True
-
                 Dim hProcess As Long
-
                 GetWindowThreadProcessId hWnd, hProcess
                 AppActivate hProcess
 
             Case WM_RBUTTONUP
                 hHook = SetWindowsHookEx(WH_CALLWNDPROC, AddressOf AppHook, App.hInstance, App.ThreadID)
                 PopupMenu mnuPopUp
-
                 If hHook Then
                     UnhookWindowsHookEx hHook
                     hHook = 0
                 End If
-
-
         End Select
-
     End If
-   
 End Sub
 
 Private Sub QuitarIconoSystray()
-
     On Error Resume Next
-
-    'Borramos el icono del systray
     Dim i   As Integer
-
     Dim nid As NOTIFYICONDATA
-
     nid = setNOTIFYICONDATA(frmMain.hWnd, vbNull, NIF_MESSAGE Or NIF_ICON Or NIF_TIP, vbNull, frmMain.Icon, "")
-
     i = Shell_NotifyIconA(NIM_DELETE, nid)
-
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-
     On Error Resume Next
-
-    'Save stats!!!
     Call Statistics.DumpStatistics
-
     Call QuitarIconoSystray
-
     Call LimpiaWsApi
-
     Dim LoopC As Integer
     For LoopC = 1 To MaxUsers
         If UserList(LoopC).ConnID <> -1 Then Call CloseSocket(LoopC)
     Next
-
-    'Log
     Dim n As Integer: n = FreeFile
     Open App.Path & "\logs\Main.log" For Append Shared As #n
         Print #n, Date & " " & time & " server cerrado."
     Close #n
-
     End
-
 End Sub
 
 Private Sub GameTimer_Timer()
@@ -925,100 +739,73 @@ End Sub
 Private Sub lblIp_Click()
     Clipboard.Clear
     Clipboard.SetText (lblIp.Caption)
-    
     If lblIp.Caption = lblIp.Tag Then
         lblIp.Caption = lblIp.Tag
     Else
         lblIp.Caption = "(Click para revelar)"
     End If
-    
     If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " | La ip y puerto fueron copiadas correctamente, pegalas donde quieras."
 End Sub
 
 Private Sub mnusalir_Click()
     Call cmdApagarServidor_Click
-
 End Sub
 
 Public Sub mnuMostrar_Click()
-
     On Error Resume Next
-
     WindowState = vbNormal
     Call Form_MouseMove(0, 0, 7725, 0)
-
 End Sub
 
 Private Sub KillLog()
-
     On Error Resume Next
-
     If FileExist(App.Path & "\logs\connect.log", vbNormal) Then Kill App.Path & "\logs\connect.log"
     If FileExist(App.Path & "\logs\haciendo.log", vbNormal) Then Kill App.Path & "\logs\haciendo.log"
     If FileExist(App.Path & "\logs\stats.log", vbNormal) Then Kill App.Path & "\logs\stats.log"
     If FileExist(App.Path & "\logs\Asesinatos.log", vbNormal) Then Kill App.Path & "\logs\Asesinatos.log"
     If FileExist(App.Path & "\logs\HackAttemps.log", vbNormal) Then Kill App.Path & "\logs\HackAttemps.log"
-
     If Not FileExist(App.Path & "\logs\nokillwsapi.txt") Then
         If FileExist(App.Path & "\logs\wsapi.log", vbNormal) Then
             Kill App.Path & "\logs\wsapi.log"
         End If
     End If
-
 End Sub
 
 Private Sub SetSystray()
-
     Dim i   As Integer
-
     Dim S   As String
-
     Dim nid As NOTIFYICONDATA
-    
     S = "ARGENTUM ONLINE LIBRE - http://www.ArgentumOnline.org"
     nid = setNOTIFYICONDATA(frmMain.hWnd, vbNull, NIF_MESSAGE Or NIF_ICON Or NIF_TIP, WM_MOUSEMOVE, frmMain.Icon, S)
     i = Shell_NotifyIconA(NIM_ADD, nid)
-        
     If WindowState <> vbMinimized Then WindowState = vbMinimized
     Visible = False
-
 End Sub
 
 Private Sub tLluviaEvent()
-
     Static MinutosLloviendo As Long
     Static MinutosSinLluvia As Long
-
     If Not Lloviendo Then
         MinutosSinLluvia = MinutosSinLluvia + 1
-        
         If MinutosSinLluvia >= CANTIDAD_MINUTOS_NUEVA_LLUVIA_EN_JUEGO Then
             Lloviendo = True
             MinutosSinLluvia = 0
             Call SendData(SendTarget.ToAll, 0, PrepareMessageRainToggle())
-
         End If
-
     Else
         MinutosLloviendo = MinutosLloviendo + 1
-
         If MinutosLloviendo >= 5 Then
             Lloviendo = False
             Call SendData(SendTarget.ToAll, 0, PrepareMessageRainToggle())
             MinutosLloviendo = 0
         Else
-
             If RandomNumber(1, 100) <= 2 Then
                 Lloviendo = False
                 MinutosLloviendo = 0
                 Call SendData(SendTarget.ToAll, 0, PrepareMessageRainToggle())
-
             End If
-
         End If
-
     End If
-
 End Sub
 
 Private Sub PacketResend_Timer()
@@ -1034,24 +821,19 @@ Private Sub TimerEnviarDatosServer_Timer()
 End Sub
 
 Public Sub WinsockThread_WndProc(ByVal hWnd As Long, ByVal Msg As Long, ByVal wParam As Long, ByVal lParam As Long, ReturnVal As Long, DefCall As Boolean)
-
     On Error Resume Next
-
     Dim Ret      As Long
     Dim Tmp()    As Byte
     Dim S        As Long
     Dim e        As Long
     Dim n        As Integer
     Dim UltError As Long
-    
     Select Case Msg
-
         Case 1025
             S = wParam
             e = WSAGetSelectEvent(lParam)
             
             Select Case e
-
                 Case FD_ACCEPT
                     If S = SockListen Then
                         Call EventoSockAccept(S)
@@ -1059,66 +841,43 @@ Public Sub WinsockThread_WndProc(ByVal hWnd As Long, ByVal Msg As Long, ByVal wP
 
                 Case FD_READ
                     n = BuscaSlotSock(S)
-
                     If n < 0 And S <> SockListen Then
                         Call WSApiCloseSocket(S)
                         Exit Sub
                     End If
-                    
-                    'create appropiate sized buffer
                     ReDim Preserve Tmp(SIZE_RCVBUF - 1) As Byte
-                    
                     Ret = recv(S, Tmp(0), SIZE_RCVBUF, 0)
-
-                    ' Comparo por = 0 ya que esto es cuando se cierra
-                    ' "gracefully". (mas abajo)
                     If Ret < 0 Then
                         UltError = Err.LastDllError
-
                         If UltError = WSAEMSGSIZE Then
                             Debug.Print "WSAEMSGSIZE"
                             Ret = SIZE_RCVBUF
-                        
                         Else
                             Debug.Print "Error en Recv: " & GetWSAErrorString(UltError)
                             Call LogApiSock("Error en Recv: N=" & n & " S=" & S & " Str=" & GetWSAErrorString(UltError))
-                            
-                            'no hay q llamar a CloseSocket() directamente,
-                            'ya q pueden abusar de algun error para
-                            'desconectarse sin los 10segs. CREEME.
                             Call CloseSocketSL(n)
                             Call Cerrar_Usuario(n)
                             Exit Sub
-
                         End If
-
                     ElseIf Ret = 0 Then
                         Call CloseSocketSL(n)
                         Call Cerrar_Usuario(n)
-
                     End If
-                    
                     ReDim Preserve Tmp(Ret - 1) As Byte
-                    
                     Call EventoSockRead(n, Tmp)
                 
                 Case FD_CLOSE
                     n = BuscaSlotSock(S)
-
                     If S <> SockListen Then Call apiclosesocket(S)
-                    
                     If n > 0 Then
                         Call BorraSlotSock(S)
                         UserList(n).ConnID = -1
                         UserList(n).ConnIDValida = False
                         Call EventoSockClose(n)
                     End If
-
             End Select
-        
+            
         Case Else
             DefCall = True
-
     End Select
-
 End Sub

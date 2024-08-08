@@ -1158,39 +1158,9 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'Argentum Online 0.12.2
-'Copyright (C) 2002 Marquez Pablo Ignacio
-'
-'This program is free software; you can redistribute it and/or modify
-'it under the terms of the Affero General Public License;
-'either version 1 of the License, or any later version.
-'
-'This program is distributed in the hope that it will be useful,
-'but WITHOUT ANY WARRANTY; without even the implied warranty of
-'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-'Affero General Public License for more details.
-'
-'You should have received a copy of the Affero General Public License
-'along with this program; if not, you can find it at http://www.affero.org/oagpl.html
-'
-'Argentum Online is based on Baronsoft's VB6 Online RPG
-'You can contact the original creator of ORE at aaron@baronsoft.com
-'for more information about ORE please visit http://www.baronsoft.com/
-'
-'
-'You can contact me at:
-'morgolock@speedy.com.ar
-'www.geocities.com/gmorgolock
-'Calle 3 numero 983 piso 7 dto A
-'La Plata - Pcia, Buenos Aires - Republica Argentina
-'Codigo Postal 1900
-'Pablo Ignacio Marquez
-
 Option Explicit
 
 Public Sub AplicarIntervalos()
-
-    '?????????? Intervalos del main loop ????????
     SanaIntervaloSinDescansar = val(txtSanaIntervaloSinDescansar.Text)
     StaminaIntervaloSinDescansar = val(txtStaminaIntervaloSinDescansar.Text)
     SanaIntervaloDescansar = val(txtSanaIntervaloDescansar.Text)
@@ -1204,66 +1174,44 @@ Public Sub AplicarIntervalos()
     IntervaloWavFx = val(txtIntervaloWAVFX.Text)
     IntervaloInvocacion = val(txtInvocacion.Text)
     IntervaloParaConexion = val(txtIntervaloParaConexion.Text)
-
-    '///////////////// TIMERS \\\\\\\\\\\\\\\\\\\
-
     IntervaloUserPuedeCastear = val(txtIntervaloLanzaHechizo.Text)
     IntervaloUserPuedeTrabajar = val(txtTrabajo.Text)
     IntervaloUserPuedeAtacar = val(txtPuedeAtacar.Text)
-    
-    '///////////////////Suerte \\\\\\\\\\\\\\\\\\
-    
     DificultadPescar = val(txtPescarSuerte.Text)
     DificultadTalar = val(txtTalarSuerte.Text)
     DificultadMinar = val(txtMinarSuerte.Text)
 End Sub
 
 Private Sub Command1_Click()
-
     On Error Resume Next
-
     Call AplicarIntervalos
-
 End Sub
 
 Private Sub Command2_Click()
-
-    On Error GoTo Err
-
-    'Intervalos
-    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "SanaIntervaloSinDescansar", str(SanaIntervaloSinDescansar))
-    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "StaminaIntervaloSinDescansar", str(StaminaIntervaloSinDescansar))
-    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "SanaIntervaloDescansar", str(SanaIntervaloDescansar))
-    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "StaminaIntervaloDescansar", str(StaminaIntervaloDescansar))
-    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloSed", str(IntervaloSed))
-    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloHambre", str(IntervaloHambre))
-    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloVeneno", str(IntervaloVeneno))
-    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloParalizado", str(IntervaloParalizado))
-    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloInvisible", str(IntervaloInvisible))
-    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloFrio", str(IntervaloFrio))
-    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloWAVFX", str(IntervaloWavFx))
-    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloInvocacion", str(IntervaloInvocacion))
-    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloParaConexion", str(IntervaloParaConexion))
-
-    '&&&&&&&&&&&&&&&&&&&&& TIMERS &&&&&&&&&&&&&&&&&&&&&&&
-
-    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloLanzaHechizo", str(IntervaloUserPuedeCastear))
-    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloTrabajo", str(IntervaloUserPuedeTrabajar))
-    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloUserPuedeAtacar", str(IntervaloUserPuedeAtacar))
-    
-    '&&&&&&&&&&&&&&&&&&&& Suerte desde INIT &&&&&&&&&&&&&&&&&&&&&&&&&
-    
-    Call WriteVar(IniPath & "Server.ini", "DIFICULTAD", "DificultadPescar", str(DificultadPescar))
-    Call WriteVar(IniPath & "Server.ini", "DIFICULTAD", "DificultadTalar", str(DificultadTalar))
-    Call WriteVar(IniPath & "Server.ini", "DIFICULTAD", "DificultadMinar", str(DificultadMinar))
-    
-    
+    On Error GoTo ErrorHandler
+    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "SanaIntervaloSinDescansar", Str(SanaIntervaloSinDescansar))
+    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "StaminaIntervaloSinDescansar", Str(StaminaIntervaloSinDescansar))
+    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "SanaIntervaloDescansar", Str(SanaIntervaloDescansar))
+    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "StaminaIntervaloDescansar", Str(StaminaIntervaloDescansar))
+    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloSed", Str(IntervaloSed))
+    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloHambre", Str(IntervaloHambre))
+    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloVeneno", Str(IntervaloVeneno))
+    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloParalizado", Str(IntervaloParalizado))
+    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloInvisible", Str(IntervaloInvisible))
+    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloFrio", Str(IntervaloFrio))
+    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloWAVFX", Str(IntervaloWavFx))
+    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloInvocacion", Str(IntervaloInvocacion))
+    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloParaConexion", Str(IntervaloParaConexion))
+    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloLanzaHechizo", Str(IntervaloUserPuedeCastear))
+    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloTrabajo", Str(IntervaloUserPuedeTrabajar))
+    Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloUserPuedeAtacar", Str(IntervaloUserPuedeAtacar))
+    Call WriteVar(IniPath & "Server.ini", "DIFICULTAD", "DificultadPescar", Str(DificultadPescar))
+    Call WriteVar(IniPath & "Server.ini", "DIFICULTAD", "DificultadTalar", Str(DificultadTalar))
+    Call WriteVar(IniPath & "Server.ini", "DIFICULTAD", "DificultadMinar", Str(DificultadMinar))
     MsgBox "Los intervalos se han guardado sin problemas."
-
     Exit Sub
-Err:
+ErrorHandler:
     MsgBox "Error al intentar grabar los intervalos"
-
 End Sub
 
 Private Sub Form_Load()
@@ -1287,13 +1235,9 @@ Private Sub Form_Load()
         .txtIntervaloLanzaHechizo.Text = IntervaloUserPuedeCastear
         .txtTrabajo.Text = IntervaloUserPuedeTrabajar
         .txtPuedeAtacar.Text = IntervaloUserPuedeAtacar
-    
     End With
-    
 End Sub
 
 Private Sub ok_Click()
     Me.Visible = False
-
 End Sub
-

@@ -113,79 +113,40 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'**************************************************************
-' frmUserList.frm
-'
-'**************************************************************
-
-'**************************************************************************
-'This program is free software; you can redistribute it and/or modify
-'it under the terms of the Affero General Public License;
-'either version 1 of the License, or any later version.
-'
-'This program is distributed in the hope that it will be useful,
-'but WITHOUT ANY WARRANTY; without even the implied warranty of
-'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-'Affero General Public License for more details.
-'
-'You should have received a copy of the Affero General Public License
-'along with this program; if not, you can find it at http://www.affero.org/oagpl.html
-'**************************************************************************
-
 Option Explicit
 
 Private Sub Command1_Click()
-
     Dim LoopC As Integer
-
     Text2.Text = "MaxUsers: " & MaxUsers & vbCrLf
     Text2.Text = Text2.Text & "LastUser: " & LastUser & vbCrLf
     Text2.Text = Text2.Text & "NumUsers: " & NumUsers & vbCrLf
-    'Text2.Text = Text2.Text & "" & vbCrLf
-
     List1.Clear
-
     For LoopC = 1 To MaxUsers
         List1.AddItem Format(LoopC, "000") & " " & IIf(UserList(LoopC).flags.UserLogged, UserList(LoopC).Name, "")
         List1.ItemData(List1.NewIndex) = LoopC
     Next LoopC
-
 End Sub
 
 Private Sub Command2_Click()
-
     Dim LoopC As Integer
-
     For LoopC = 1 To MaxUsers
-
         If UserList(LoopC).ConnID <> -1 And Not UserList(LoopC).flags.UserLogged Then
             Call CloseSocket(LoopC)
-
         End If
-
     Next LoopC
-
 End Sub
 
 Private Sub List1_Click()
-
     Dim Userindex As Integer
-
     If List1.ListIndex <> -1 Then
         Userindex = List1.ItemData(List1.ListIndex)
-
         If Userindex > 0 And Userindex <= MaxUsers Then
-
             With UserList(Userindex)
                 Text1.Text = "UserLogged: " & .flags.UserLogged & vbCrLf
                 Text1.Text = Text1.Text & "IdleCount: " & .Counters.IdleCount & vbCrLf
                 Text1.Text = Text1.Text & "ConnId: " & .ConnID & vbCrLf
                 Text1.Text = Text1.Text & "ConnIDValida: " & .ConnIDValida & vbCrLf
-
             End With
-
         End If
-
     End If
-
 End Sub

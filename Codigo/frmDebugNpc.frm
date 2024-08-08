@@ -129,54 +129,20 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'Argentum Online 0.12.2
-'Copyright (C) 2002 Marquez Pablo Ignacio
-'
-'This program is free software; you can redistribute it and/or modify
-'it under the terms of the Affero General Public License;
-'either version 1 of the License, or any later version.
-'
-'This program is distributed in the hope that it will be useful,
-'but WITHOUT ANY WARRANTY; without even the implied warranty of
-'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-'Affero General Public License for more details.
-'
-'You should have received a copy of the Affero General Public License
-'along with this program; if not, you can find it at http://www.affero.org/oagpl.html
-'
-'Argentum Online is based on Baronsoft's VB6 Online RPG
-'You can contact the original creator of ORE at aaron@baronsoft.com
-'for more information about ORE please visit http://www.baronsoft.com/
-'
-'
-'You can contact me at:
-'morgolock@speedy.com.ar
-'www.geocities.com/gmorgolock
-'Calle 3 numero 983 piso 7 dto A
-'La Plata - Pcia, Buenos Aires - Republica Argentina
-'Codigo Postal 1900
-'Pablo Ignacio Marquez
-
 Option Explicit
 
 Private Sub Command1_Click()
-
     Dim i As Integer, K As Integer
-
     For i = 1 To LastNPC
-
         If Npclist(i).flags.NPCActive Then K = K + 1
     Next i
-
     Label1.Caption = "Npcs Activos:" & K
     Label2.Caption = "Npcs Libres:" & MAXNPCS - K
     Label3.Caption = "LastNpcIndex:" & LastNPC
     Label4.Caption = "MAXNPCS:" & MAXNPCS
-
 End Sub
 
 Private Sub Command2_Click()
     Unload Me
-
 End Sub
 
