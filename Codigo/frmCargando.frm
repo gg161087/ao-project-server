@@ -121,7 +121,7 @@ End Function
 Private Function CheckIfRunningLastVersion() As Boolean
     Dim responseGithub As String
     Dim JsonObject     As Object
-    responseGithub = Inet1.OpenURL("https://api.github.com/repos/ao-libre/ao-server/releases/latest")
+    responseGithub = Inet1.OpenURL("https://api.github.com/repos/gg161087/ao-project-server/releases/latest")
     If Len(responseGithub) = 0 Then Exit Function
     Set JsonObject = JSON.parse(responseGithub)
     VersionNumberMaster = JsonObject.Item("tag_name")
