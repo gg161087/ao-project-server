@@ -1483,7 +1483,7 @@ Private Sub HandleLoginExistingChar(ByVal Userindex As Integer)
     Else
         Call ConnectUser(Userindex, UserName, AccountHash)
     End If
-On Error GoTo ErrorHandler:
+ErrorHandler:
     Dim Error As Long
     Error = Err.Number
     On Error GoTo 0

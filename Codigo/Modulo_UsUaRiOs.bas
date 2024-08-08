@@ -477,7 +477,7 @@ Public Sub CheckUserLevel(ByVal Userindex As Integer, Optional ByVal PrintInCons
             .Stats.MaxHp = .Stats.MaxHp + AumentoHP
             If .Stats.MaxHp > STAT_MAXHP Then .Stats.MaxHp = STAT_MAXHP
             .Stats.MaxSta = .Stats.MaxSta + AumentoSTA
-            If .Stats.MaxSta > STAT_MAXSTA Then .Stats.MaxSta = STAT_MAXSTAa
+            If .Stats.MaxSta > STAT_MAXSTA Then .Stats.MaxSta = STAT_MAXSTA
             .Stats.MaxMAN = .Stats.MaxMAN + AumentoMANA
             If .Stats.MaxMAN > STAT_MAXMAN Then .Stats.MaxMAN = STAT_MAXMAN
             .Stats.MaxHIT = .Stats.MaxHIT + AumentoHIT
@@ -566,6 +566,7 @@ Sub MoveUserChar(ByVal Userindex As Integer, ByVal nHeading As eHeading)
            (MapData(UserList(Userindex).Pos.Map, nPos.X, nPos.Y).trigger = eTrigger.CASA Or _
            MapData(UserList(Userindex).Pos.Map, nPos.X, nPos.Y).trigger = eTrigger.BAJOTECHO Or _
            MapInfo(UserList(Userindex).Pos.Map).Zona = Dungeon) Then _
+
             Exit Sub
         End If
         If MapInfo(UserList(Userindex).Pos.Map).NumUsers > 1 Then

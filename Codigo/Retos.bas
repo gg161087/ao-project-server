@@ -242,7 +242,7 @@ ErrorHandler:
 End Function
 
 Private Function CanAcceptFight(ByVal Userindex As Integer, ByVal UserName As String) As Boolean
-    On Error GoTo Error
+    On Error GoTo ErrorHandler
     Dim SlotTemp As Byte
     Dim tUser As Integer
     Dim ArrayNulo As Long

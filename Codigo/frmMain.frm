@@ -368,10 +368,10 @@ Begin VB.Form frmMain
       Alignment       =   2  'Center
       BackColor       =   &H00C0FFC0&
       BorderStyle     =   1  'Fixed Single
-      Caption         =   "(Click para revelar)"
+      Caption         =   "(Doble click para mostrar)"
       BeginProperty Font 
          Name            =   "Consolas"
-         Size            =   18
+         Size            =   14.25
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -737,14 +737,16 @@ Private Sub GameTimer_Timer()
 End Sub
 
 Private Sub lblIp_Click()
-    Clipboard.Clear
-    Clipboard.SetText (lblIp.Caption)
-    If lblIp.Caption = lblIp.Tag Then
+    Clipboard.SetText (lblIp.Tag)
+    frmMain.txtStatus.Text = "Dirección IP copiada."
+End Sub
+
+Private Sub lblIp_DblClick()
+    If lblIp.Caption <> lblIp.Tag Then
         lblIp.Caption = lblIp.Tag
     Else
-        lblIp.Caption = "(Click para revelar)"
+        lblIp.Caption = "(Doble click para mostrar)"
     End If
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " | La ip y puerto fueron copiadas correctamente, pegalas donde quieras."
 End Sub
 
 Private Sub mnusalir_Click()

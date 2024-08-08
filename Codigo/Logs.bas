@@ -135,8 +135,7 @@ Public Sub LogTarea(Desc As String)
     Print #nfile, Date & " " & time & " " & Desc
     Close #nfile
     Exit Sub
-
-errHandler:
+ErrorHandler:
 
 End Sub
 
