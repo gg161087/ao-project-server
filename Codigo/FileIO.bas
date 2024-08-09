@@ -1076,6 +1076,7 @@ Sub LoadSini()
     Set Lector = New clsIniManager
     If frmCargando.Visible Then
         frmCargando.lblCargando(3).Caption = "Cargando INI"
+    End If
     If frmMain.Visible Then
         frmMain.txtStatus.Text = "Cargando info de inicio del server."
     End If
