@@ -148,6 +148,9 @@ End Sub
 
 Public Sub CargarHechizos()
     On Error GoTo ErrorHandler
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando Hechizos"
+    End If
     If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando Hechizos."
     Dim Hechizo As Integer
     Dim Leer    As clsIniManager
@@ -224,6 +227,9 @@ ErrorHandler:
 End Sub
 
 Sub LoadMotd()
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando MOTD"
+    End If
     If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando archivo MOTD.INI."
     Dim i As Integer
     MaxLines = val(GetVar(App.Path & "\Dat\Motd.ini", "INIT", "NumLines"))
@@ -390,8 +396,19 @@ Sub LoadArmadurasHerreria()
     If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Se cargo las armaduras crafteables por Herreria. Operacion Realizada con exito."
 End Sub
 
+Sub LoadHerreria()
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando Herreria"
+    End If
+    Call LoadArmasHerreria
+    Call LoadArmadurasHerreria
+End Sub
+
 Sub LoadBalance()
     Dim i As Long
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando Balance"
+    End If
     If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando el archivo Balance.dat"
     For i = 1 To NUMCLASES
         With ModClase(i)
@@ -432,6 +449,9 @@ Sub LoadBalance()
 End Sub
 
 Sub LoadObjCarpintero()
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando Carpintero"
+    End If
     If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando los objetos crafteables via Carpinteria"
     Dim n As Integer, lc As Integer
     n = val(GetVar(DatPath & "ObjCarpintero.dat", "INIT", "NumObjs"))
@@ -443,6 +463,9 @@ Sub LoadObjCarpintero()
 End Sub
 
 Sub LoadObjArtesano()
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando Artesano"
+    End If
     If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando los objetos crafteables del Artesano"
     Dim n As Integer, lc As Integer
     n = val(GetVar(DatPath & "ObjArtesano.dat", "INIT", "NumObjs"))
@@ -455,6 +478,9 @@ End Sub
 
 Sub LoadOBJData()
     On Error GoTo ErrorHandler
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando Objetos"
+    End If
     If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando base de datos de los objetos."
     Dim Object As Integer
     Dim Leer   As clsIniManager
@@ -865,6 +891,9 @@ Function GetVar(ByVal File As String, ByVal Main As String, ByVal Var As String,
 End Function
 
 Sub CargarBackUp()
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando Backup"
+    End If
     If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando backup."
     Dim Map       As Integer
     Dim tFileName As String
@@ -909,6 +938,9 @@ Sub LoadMapData()
     ReDim MapData(1 To NumMaps, XMinMapSize To XMaxMapSize, YMinMapSize To YMaxMapSize) As MapBlock
     ReDim MapInfo(1 To NumMaps) As MapInfo
     For Map = 1 To NumMaps
+        If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando Mapas " & Map & "/" & NumMaps
+        End If
         tFileName = App.Path & MapPath & "Mapa" & Map
         Call CargarMapa(Map, tFileName)
         frmCargando.cargar.Value = frmCargando.cargar.Value + 1
@@ -1042,6 +1074,8 @@ Sub LoadSini()
     Dim Temporal As Long
     Dim Lector As clsIniManager
     Set Lector = New clsIniManager
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando INI"
     If frmMain.Visible Then
         frmMain.txtStatus.Text = "Cargando info de inicio del server."
     End If
@@ -1178,6 +1212,9 @@ Sub LoadSini()
 End Sub
 
 Sub CargarCiudades()
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando Ciudades"
+    End If
     If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando Ciudades.dat"
     Dim Lector As clsIniManager: Set Lector = New clsIniManager
     Call Lector.Initialize(DatPath & "Ciudades.dat")
@@ -1550,6 +1587,9 @@ Sub Ban(ByVal BannedName As String, ByVal Baneador As String, ByVal Motivo As St
 End Sub
 
 Public Sub CargaApuestas()
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando Apuestas"
+    End If
     If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando apuestas.dat"
     Apuestas.Ganancias = val(GetVar(DatPath & "apuestas.dat", "Main", "Ganancias"))
     Apuestas.Perdidas = val(GetVar(DatPath & "apuestas.dat", "Main", "Perdidas"))
@@ -1558,6 +1598,9 @@ Public Sub CargaApuestas()
 End Sub
 
 Public Sub generateMatrix(ByVal Mapa As Integer)
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Generando Matrix"
+    End If
     Dim i As Integer
     Dim j As Integer
     ReDim distanceToCities(1 To NumMaps) As HomeDistance
@@ -1640,6 +1683,9 @@ Public Function getLimit(ByVal Mapa As Integer, ByVal side As Byte) As Integer
 End Function
 
 Public Sub LoadArmadurasFaccion()
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando Faccion"
+    End If
     If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando armaduras faccionarias"
     Dim ClassIndex    As Long
     Dim ArmaduraIndex As Integer
@@ -1900,3 +1946,4 @@ Public Sub ReloadNPCByIndex(ByVal NpcIndex As Integer)
 ErrorHandler:
     Call LogError("Error en ReloadNPCIndexByFile - Err: " & Err.Number & " " & Err.description)
 End Sub
+

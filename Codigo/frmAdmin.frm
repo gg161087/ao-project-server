@@ -1,6 +1,6 @@
 VERSION 5.00
 Begin VB.Form frmAdmin 
-   BackColor       =   &H00FFC0C0&
+   BackColor       =   &H00404040&
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Administracion del servidor"
    ClientHeight    =   2865
@@ -13,7 +13,7 @@ Begin VB.Form frmAdmin
    ScaleWidth      =   4680
    StartUpPosition =   2  'CenterScreen
    Begin VB.Frame Frame1 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00404040&
       Caption         =   "Personajes"
       BeginProperty Font 
          Name            =   "Tahoma"
@@ -24,6 +24,7 @@ Begin VB.Form frmAdmin
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
+      ForeColor       =   &H00E0E0E0&
       Height          =   2535
       Index           =   0
       Left            =   240
@@ -31,7 +32,7 @@ Begin VB.Form frmAdmin
       Top             =   120
       Width           =   4215
       Begin VB.TextBox Text1 
-         BackColor       =   &H00C0FFFF&
+         BackColor       =   &H00808080&
          Enabled         =   0   'False
          Height          =   495
          Left            =   480
@@ -42,7 +43,7 @@ Begin VB.Form frmAdmin
          Width           =   3135
       End
       Begin VB.CommandButton Command3 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Echar todos los PJS no privilegiados"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -61,7 +62,7 @@ Begin VB.Form frmAdmin
          Width           =   3135
       End
       Begin VB.CommandButton Command2 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "R"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -80,7 +81,7 @@ Begin VB.Form frmAdmin
          Width           =   255
       End
       Begin VB.ComboBox cboPjs 
-         BackColor       =   &H00C0FFFF&
+         BackColor       =   &H00808080&
          Height          =   315
          Left            =   480
          TabIndex        =   2
@@ -88,7 +89,7 @@ Begin VB.Form frmAdmin
          Width           =   3135
       End
       Begin VB.CommandButton Command1 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Echar"
          BeginProperty Font 
             Name            =   "MS Sans Serif"

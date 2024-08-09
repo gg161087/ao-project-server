@@ -23,6 +23,9 @@ Public Type AreaInfo
 End Type
 
 Public Sub InitializeAreas()
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando Areas"
+    End If
     Dim i As Long
     ReDim ConnGroups(1 To NumMaps) As Collection
     For i = 1 To NumMaps

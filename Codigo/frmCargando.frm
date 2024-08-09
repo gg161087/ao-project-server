@@ -21,7 +21,7 @@ Begin VB.Form frmCargando
    Begin ComctlLib.ProgressBar cargar 
       Height          =   255
       Left            =   120
-      TabIndex        =   2
+      TabIndex        =   1
       Top             =   2880
       Width           =   3855
       _ExtentX        =   6800
@@ -46,13 +46,13 @@ Begin VB.Form frmCargando
          _ExtentY        =   1005
          _Version        =   393216
       End
-      Begin VB.Label Label1 
-         Alignment       =   2  'Center
+      Begin VB.Label lblVersion 
+         Alignment       =   1  'Right Justify
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
-         Caption         =   "Cargando, por favor espere..."
+         Caption         =   " aa"
          BeginProperty Font 
-            Name            =   "MS Sans Serif"
+            Name            =   "Tahoma"
             Size            =   8.25
             Charset         =   0
             Weight          =   700
@@ -60,22 +60,22 @@ Begin VB.Form frmCargando
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         ForeColor       =   &H000000FF&
+         ForeColor       =   &H00000000&
          Height          =   195
-         Index           =   3
-         Left            =   2160
-         TabIndex        =   1
-         Top             =   2280
-         Width           =   2535
+         Index           =   2
+         Left            =   240
+         TabIndex        =   2
+         Top             =   240
+         Width           =   375
       End
    End
-   Begin VB.Label Label1 
-      Alignment       =   1  'Right Justify
+   Begin VB.Label lblCargando 
+      Alignment       =   2  'Center
       AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
-      Caption         =   " aa"
+      Caption         =   "Cargando, por favor espere..."
       BeginProperty Font 
-         Name            =   "Tahoma"
+         Name            =   "MS Sans Serif"
          Size            =   8.25
          Charset         =   0
          Weight          =   700
@@ -83,13 +83,13 @@ Begin VB.Form frmCargando
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00000000&
+      ForeColor       =   &H000000FF&
       Height          =   195
-      Index           =   2
-      Left            =   6000
+      Index           =   3
+      Left            =   4050
       TabIndex        =   3
-      Top             =   2880
-      Width           =   375
+      Top             =   2913
+      Width           =   2535
    End
 End
 Attribute VB_Name = "frmCargando"
@@ -103,7 +103,7 @@ Private VersionNumberMaster As String
 Private VersionNumberLocal As String
 
 Private Sub Form_Load()
-    Label1(2).Caption = GetVersionOfTheServer()
+    lblVersion(2).Caption = GetVersionOfTheServer()
     Picture1.Picture = LoadPicture(App.Path & "\logo.jpg")
     Me.VerifyIfUsingLastVersion
 End Sub

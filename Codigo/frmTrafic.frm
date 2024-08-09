@@ -1,6 +1,6 @@
 VERSION 5.00
 Begin VB.Form frmTrafic 
-   BackColor       =   &H00FFC0C0&
+   BackColor       =   &H00404040&
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Trafico"
    ClientHeight    =   2850
@@ -15,7 +15,7 @@ Begin VB.Form frmTrafic
    ScaleWidth      =   4680
    StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton Command1 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00C0C0C0&
       Cancel          =   -1  'True
       Caption         =   "Salir (Esc)"
       BeginProperty Font 
@@ -35,7 +35,7 @@ Begin VB.Form frmTrafic
       Width           =   1440
    End
    Begin VB.ListBox lstTrafico 
-      BackColor       =   &H00C0FFFF&
+      BackColor       =   &H00808080&
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   8.25

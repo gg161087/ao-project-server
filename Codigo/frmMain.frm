@@ -1,7 +1,7 @@
 VERSION 5.00
 Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "MSINET.OCX"
 Begin VB.Form frmMain 
-   BackColor       =   &H00FFC0C0&
+   BackColor       =   &H00404040&
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Argentum Online"
    ClientHeight    =   6975
@@ -31,7 +31,7 @@ Begin VB.Form frmMain
    WindowState     =   1  'Minimized
    Begin VB.TextBox txtRecordOnline 
       Alignment       =   2  'Center
-      BackColor       =   &H00C0FFFF&
+      BackColor       =   &H00808080&
       Height          =   315
       Left            =   9240
       Locked          =   -1  'True
@@ -41,7 +41,7 @@ Begin VB.Form frmMain
       Width           =   975
    End
    Begin VB.TextBox txtStatus 
-      BackColor       =   &H00400000&
+      BackColor       =   &H00000000&
       BeginProperty Font 
          Name            =   "Comic Sans MS"
          Size            =   12
@@ -78,8 +78,9 @@ Begin VB.Form frmMain
       Width           =   4935
    End
    Begin VB.CheckBox chkServerHabilitado 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00404040&
       Caption         =   "Server Habilitado Solo Gms"
+      ForeColor       =   &H00E0E0E0&
       Height          =   255
       Left            =   120
       TabIndex        =   12
@@ -88,7 +89,7 @@ Begin VB.Form frmMain
    End
    Begin VB.TextBox txtNumUsers 
       Alignment       =   2  'Center
-      BackColor       =   &H00C0FFFF&
+      BackColor       =   &H00808080&
       Height          =   315
       Left            =   2640
       Locked          =   -1  'True
@@ -98,7 +99,7 @@ Begin VB.Form frmMain
       Width           =   975
    End
    Begin VB.CommandButton cmdSystray 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00C0C0C0&
       Caption         =   "Systray"
       Height          =   375
       Left            =   120
@@ -108,7 +109,7 @@ Begin VB.Form frmMain
       Width           =   1335
    End
    Begin VB.CommandButton cmdApagarServidor 
-      BackColor       =   &H00C0C0FF&
+      BackColor       =   &H00C0E0FF&
       Caption         =   "Apagar Servidor Con Backup"
       Height          =   375
       Left            =   1560
@@ -118,7 +119,7 @@ Begin VB.Form frmMain
       Width           =   3495
    End
    Begin VB.CommandButton cmdConfiguracion 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00C0C0C0&
       Caption         =   "Configuracion General"
       Height          =   375
       Left            =   120
@@ -128,7 +129,7 @@ Begin VB.Form frmMain
       Width           =   4935
    End
    Begin VB.CommandButton cmdDump 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00C0C0C0&
       Caption         =   "Crear Log Critico de Usuarios"
       Height          =   375
       Left            =   120
@@ -144,8 +145,9 @@ Begin VB.Form frmMain
       Top             =   2160
    End
    Begin VB.Frame Frame1 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00404040&
       Caption         =   "Mensajea todos los clientes (Solo testeo)"
+      ForeColor       =   &H00E0E0E0&
       Height          =   3615
       Left            =   120
       TabIndex        =   1
@@ -179,7 +181,7 @@ Begin VB.Form frmMain
          Top             =   1440
       End
       Begin VB.TextBox txtChat 
-         BackColor       =   &H00C0FFFF&
+         BackColor       =   &H00808080&
          Height          =   2175
          Left            =   120
          MultiLine       =   -1  'True
@@ -188,7 +190,7 @@ Begin VB.Form frmMain
          Width           =   4695
       End
       Begin VB.CommandButton Command2 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Enviar por Consola"
          BeginProperty Font 
             Name            =   "Tahoma"
@@ -207,7 +209,7 @@ Begin VB.Form frmMain
          Width           =   2295
       End
       Begin VB.CommandButton Command1 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Enviar por Pop-Up"
          BeginProperty Font 
             Name            =   "Tahoma"
@@ -226,7 +228,7 @@ Begin VB.Form frmMain
          Width           =   2295
       End
       Begin VB.TextBox BroadMsg 
-         BackColor       =   &H00C0FFFF&
+         BackColor       =   &H00808080&
          Height          =   315
          Left            =   120
          TabIndex        =   2
@@ -241,7 +243,7 @@ Begin VB.Form frmMain
       ForeColor       =   &H00FFFF80&
       Height          =   255
       Left            =   5400
-      TabIndex        =   24
+      TabIndex        =   23
       Top             =   4440
       Width           =   4455
    End
@@ -252,7 +254,7 @@ Begin VB.Form frmMain
       ForeColor       =   &H00E0E0E0&
       Height          =   255
       Left            =   5400
-      TabIndex        =   23
+      TabIndex        =   22
       Top             =   3720
       Width           =   4455
    End
@@ -263,7 +265,7 @@ Begin VB.Form frmMain
       ForeColor       =   &H000080FF&
       Height          =   255
       Left            =   5400
-      TabIndex        =   22
+      TabIndex        =   21
       Top             =   3360
       Width           =   4455
    End
@@ -274,29 +276,9 @@ Begin VB.Form frmMain
       ForeColor       =   &H0080FF80&
       Height          =   255
       Left            =   5400
-      TabIndex        =   21
+      TabIndex        =   20
       Top             =   4080
       Width           =   4455
-   End
-   Begin VB.Label lblFooter 
-      Alignment       =   2  'Center
-      BackColor       =   &H80000007&
-      Caption         =   "http://www.ArgentumOnline.org"
-      BeginProperty Font 
-         Name            =   "Tahoma"
-         Size            =   11.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00E0E0E0&
-      Height          =   375
-      Left            =   6360
-      TabIndex        =   20
-      Top             =   6480
-      Width           =   3975
    End
    Begin VB.Label lblIpHelpText 
       Appearance      =   0  'Flat
@@ -314,7 +296,7 @@ Begin VB.Form frmMain
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00000000&
+      ForeColor       =   &H00E0E0E0&
       Height          =   225
       Left            =   5400
       TabIndex        =   19
@@ -336,7 +318,7 @@ Begin VB.Form frmMain
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00000000&
+      ForeColor       =   &H00E0E0E0&
       Height          =   195
       Left            =   7080
       TabIndex        =   18
@@ -357,7 +339,7 @@ Begin VB.Form frmMain
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00000080&
+      ForeColor       =   &H00E0E0E0&
       Height          =   1215
       Left            =   5280
       TabIndex        =   16
@@ -366,7 +348,7 @@ Begin VB.Form frmMain
    End
    Begin VB.Label lblIp 
       Alignment       =   2  'Center
-      BackColor       =   &H00C0FFC0&
+      BackColor       =   &H00808080&
       BorderStyle     =   1  'Fixed Single
       Caption         =   "(Doble click para mostrar)"
       BeginProperty Font 
@@ -398,7 +380,7 @@ Begin VB.Form frmMain
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H000040C0&
+      ForeColor       =   &H000000FF&
       Height          =   375
       Left            =   4320
       TabIndex        =   5
@@ -421,11 +403,11 @@ Begin VB.Form frmMain
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00000000&
+      ForeColor       =   &H00E0E0E0&
       Height          =   195
       Left            =   120
       TabIndex        =   0
-      Top             =   360
+      Top             =   300
       Width           =   2460
    End
    Begin VB.Menu mnuPopUp 

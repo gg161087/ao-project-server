@@ -1,6 +1,6 @@
 VERSION 5.00
 Begin VB.Form frmServidor 
-   BackColor       =   &H00FFC0C0&
+   BackColor       =   &H00404040&
    Caption         =   "Configuracion del Servidor"
    ClientHeight    =   6015
    ClientLeft      =   60
@@ -16,12 +16,15 @@ Begin VB.Form frmServidor
       Italic          =   0   'False
       Strikethrough   =   0   'False
    EndProperty
+   ForeColor       =   &H00E0E0E0&
    LinkTopic       =   "Form1"
    ScaleHeight     =   401
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   440
    StartUpPosition =   2  'CenterScreen
    Begin VB.ListBox listDats 
+      BackColor       =   &H00808080&
+      ForeColor       =   &H00000000&
       Height          =   1425
       Left            =   2160
       TabIndex        =   23
@@ -29,7 +32,7 @@ Begin VB.Form frmServidor
       Width           =   4095
    End
    Begin VB.CommandButton cmdReiniciar 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00C0C0C0&
       Caption         =   "Reiniciar"
       Enabled         =   0   'False
       Height          =   375
@@ -40,15 +43,16 @@ Begin VB.Form frmServidor
       Width           =   1695
    End
    Begin VB.Frame Frame3 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00404040&
       Caption         =   "Administracion"
+      ForeColor       =   &H00E0E0E0&
       Height          =   2415
       Left            =   120
       TabIndex        =   9
       Top             =   2040
       Width           =   6375
       Begin VB.CommandButton cmdRecargarGuardiasPosOrig 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Guardias en pos original"
          Height          =   495
          Left            =   4320
@@ -58,7 +62,7 @@ Begin VB.Form frmServidor
          Width           =   1935
       End
       Begin VB.CommandButton cmdResetListen 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Reset Listen"
          Height          =   375
          Left            =   2280
@@ -68,7 +72,7 @@ Begin VB.Form frmServidor
          Width           =   1935
       End
       Begin VB.CommandButton cmdResetSockets 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Reset sockets"
          Height          =   375
          Left            =   240
@@ -78,7 +82,7 @@ Begin VB.Form frmServidor
          Width           =   1935
       End
       Begin VB.CommandButton cmdDebugUserlist 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Debug UserList"
          Height          =   495
          Left            =   4320
@@ -88,7 +92,7 @@ Begin VB.Form frmServidor
          Width           =   1935
       End
       Begin VB.CommandButton cmdUnbanAllIps 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Unban All IPs (PELIGRO!)"
          Height          =   495
          Left            =   2280
@@ -98,7 +102,7 @@ Begin VB.Form frmServidor
          Width           =   1935
       End
       Begin VB.CommandButton cmdUnbanAll 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Unban All (PELIGRO!)"
          Height          =   495
          Left            =   240
@@ -108,7 +112,7 @@ Begin VB.Form frmServidor
          Width           =   1935
       End
       Begin VB.CommandButton cmdDebugNpcs 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Debug Npcs"
          Height          =   375
          Left            =   4320
@@ -118,7 +122,7 @@ Begin VB.Form frmServidor
          Width           =   1935
       End
       Begin VB.CommandButton frmAdministracion 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Administracion"
          Height          =   375
          Left            =   2280
@@ -128,7 +132,7 @@ Begin VB.Form frmServidor
          Width           =   1935
       End
       Begin VB.CommandButton cmdPausarServidor 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Pausar el servidor"
          Height          =   375
          Left            =   240
@@ -138,7 +142,7 @@ Begin VB.Form frmServidor
          Width           =   1935
       End
       Begin VB.CommandButton cmdStatsSlots 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Stats de Slots"
          Height          =   375
          Left            =   4320
@@ -148,7 +152,7 @@ Begin VB.Form frmServidor
          Width           =   1935
       End
       Begin VB.CommandButton cmdVerTrafico 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Trafico"
          Height          =   375
          Left            =   2280
@@ -158,7 +162,7 @@ Begin VB.Form frmServidor
          Width           =   1935
       End
       Begin VB.CommandButton cmdConfigIntervalos 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Config. Intervalos"
          Height          =   375
          Left            =   240
@@ -169,7 +173,7 @@ Begin VB.Form frmServidor
       End
    End
    Begin VB.CommandButton cmdCerrar 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00C0C0C0&
       Cancel          =   -1  'True
       Caption         =   "Salir (Esc)"
       Height          =   375
@@ -180,7 +184,7 @@ Begin VB.Form frmServidor
       Width           =   1695
    End
    Begin VB.CommandButton cmdForzarCierre 
-      BackColor       =   &H00C0C0FF&
+      BackColor       =   &H008080FF&
       Caption         =   "Forzar Cierre del Servidor"
       Height          =   375
       Left            =   3720
@@ -190,15 +194,16 @@ Begin VB.Form frmServidor
       Width           =   2775
    End
    Begin VB.Frame Frame2 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00404040&
       Caption         =   "Backup"
+      ForeColor       =   &H00E0E0E0&
       Height          =   735
       Left            =   120
       TabIndex        =   3
       Top             =   4560
       Width           =   6375
       Begin VB.CommandButton cmdLoadWorldBackup 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Cargar Mapas"
          Height          =   375
          Left            =   4320
@@ -208,7 +213,7 @@ Begin VB.Form frmServidor
          Width           =   1935
       End
       Begin VB.CommandButton cmdCharBackup 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Guardar Chars"
          Height          =   375
          Left            =   2280
@@ -218,7 +223,7 @@ Begin VB.Form frmServidor
          Width           =   1935
       End
       Begin VB.CommandButton cmdWorldBackup 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Guardar Mapas"
          Height          =   375
          Left            =   240
@@ -229,15 +234,16 @@ Begin VB.Form frmServidor
       End
    End
    Begin VB.Frame Frame1 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00404040&
       Caption         =   "Recargar"
+      ForeColor       =   &H00E0E0E0&
       Height          =   1815
       Left            =   120
       TabIndex        =   0
       Top             =   120
       Width           =   6375
       Begin VB.CommandButton cmdRecargarAdministradores 
-         BackColor       =   &H0080C0FF&
+         BackColor       =   &H00C0E0FF&
          Caption         =   "Administradores"
          Height          =   375
          Left            =   240
@@ -247,7 +253,7 @@ Begin VB.Form frmServidor
          Width           =   1575
       End
       Begin VB.CommandButton cmdRecargarClanes 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Clanes"
          Height          =   375
          Left            =   240
@@ -257,7 +263,7 @@ Begin VB.Form frmServidor
          Width           =   1575
       End
       Begin VB.CommandButton cmdRecargarServerIni 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00C0C0C0&
          Caption         =   "Server.ini"
          Height          =   375
          Left            =   240

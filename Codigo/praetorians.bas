@@ -17,6 +17,9 @@ Public Enum ePretorianAI
 End Enum
 
 Public Sub LoadPretorianData()
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando Pretorians"
+    End If
     Dim PretorianDat As String
     PretorianDat = DatPath & "Pretorianos.dat"
     Dim NroCombinaciones As Integer

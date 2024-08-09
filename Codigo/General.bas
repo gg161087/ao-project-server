@@ -131,42 +131,27 @@ Sub Main()
     On Error Resume Next
     ChDir App.Path
     ChDrive App.Path
+    frmCargando.Show
     Call LoadMotd
     Call BanIpCargar
-    frmCargando.Show
-    frmCargando.Label1(2).Caption = "Cargando constantes..."
     Call LoadConstants
     DoEvents
-    frmCargando.Label1(2).Caption = "Iniciando Arrays..."
     Call LoadArrays
-    frmCargando.Label1(2).Caption = "Cargando Server.ini"
     Call LoadSini
     Call CargarCiudades
     Call CargaApuestas
-    frmCargando.Label1(2).Caption = "Cargando NPCs.Dat"
     Call CargaNpcsDat
-    frmCargando.Label1(2).Caption = "Cargando Obj.Dat"
     Call LoadOBJData
-    frmCargando.Label1(2).Caption = "Cargando Hechizos.Dat"
     Call CargarHechizos
-    frmCargando.Label1(2).Caption = "Cargando Objetos de Herreria"
-    Call LoadArmasHerreria
-    Call LoadArmadurasHerreria
-    frmCargando.Label1(2).Caption = "Cargando Objetos de Carpinteria"
+    Call LoadHerreria
     Call LoadObjCarpintero
-    frmCargando.Label1(2).Caption = "Cargando Objetos del Artesano"
     Call LoadObjArtesano
-    frmCargando.Label1(2).Caption = "Cargando Balance.Dat"
     Call LoadBalance
-    frmCargando.Label1(2).Caption = "Cargando ArmadurasFaccionarias.dat"
     Call LoadArmadurasFaccion
-    frmCargando.Label1(2).Caption = "Cargando Pretorianos.dat"
     Call LoadPretorianData
     If BootDelBackUp Then
-        frmCargando.Label1(2).Caption = "Cargando Backup"
         Call CargarBackUp
     Else
-        frmCargando.Label1(2).Caption = "Cargando Mapas"
         Call LoadMapData
     End If
     Call InitializeAreas
@@ -200,6 +185,9 @@ End Sub
 
 Private Sub LoadConstants()
     On Error Resume Next
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando constantes"
+    End If
     LastBackup = Format(Now, "Short Time")
     Minutos = Format(Now, "Short Time")
     IniPath = App.Path & "\"
@@ -325,6 +313,9 @@ End Sub
 
 Private Sub LoadArrays()
     On Error Resume Next
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando Arrays"
+    End If
     Call LoadRecords
     Call LoadGuildsDB
     Call LoadQuests
@@ -332,6 +323,9 @@ Private Sub LoadArrays()
 End Sub
 
 Private Sub ResetUsersConnections()
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Generando Conexiones"
+    End If
     On Error Resume Next
     Dim LoopC As Long
     For LoopC = 1 To MaxUsers
@@ -788,6 +782,9 @@ Public Sub Sanar(ByVal Userindex As Integer, ByVal DeltaTick As Single, ByRef En
 End Sub
 
 Public Sub CargaNpcsDat(Optional ByVal ForzarActualizacionNpcsExistentes As Boolean = False)
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando NPCs"
+    End If
     If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando NPCs.dat."
     Set LeerNPCs = New clsIniManager
     Call LeerNPCs.Initialize(DatPath & "NPCs.dat")

@@ -270,6 +270,9 @@ Public Sub BanIpGuardar()
 End Sub
 
 Public Sub BanIpCargar()
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando BAN's"
+    End If
     Dim ArchN        As Long
     Dim Tmp          As String
     Dim ArchivoBanIp As String

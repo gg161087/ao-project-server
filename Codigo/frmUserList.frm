@@ -1,6 +1,6 @@
 VERSION 5.00
 Begin VB.Form frmUserList 
-   BackColor       =   &H00FFC0C0&
+   BackColor       =   &H00404040&
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Debug de Userlist"
    ClientHeight    =   4665
@@ -13,7 +13,7 @@ Begin VB.Form frmUserList
    ScaleWidth      =   5520
    StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton Command2 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00C0C0C0&
       Caption         =   "Echar todos los no Logged"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
@@ -32,7 +32,7 @@ Begin VB.Form frmUserList
       Width           =   3015
    End
    Begin VB.TextBox Text2 
-      BackColor       =   &H00C0FFFF&
+      BackColor       =   &H00808080&
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   8.25
@@ -52,7 +52,7 @@ Begin VB.Form frmUserList
       Width           =   3015
    End
    Begin VB.TextBox Text1 
-      BackColor       =   &H00C0FFFF&
+      BackColor       =   &H00808080&
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   8.25
@@ -72,7 +72,7 @@ Begin VB.Form frmUserList
       Width           =   3015
    End
    Begin VB.CommandButton Command1 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00C0C0C0&
       Caption         =   "Actualiza"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
@@ -91,7 +91,7 @@ Begin VB.Form frmUserList
       Width           =   2175
    End
    Begin VB.ListBox List1 
-      BackColor       =   &H00C0FFFF&
+      BackColor       =   &H00808080&
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   8.25

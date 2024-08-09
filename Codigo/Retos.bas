@@ -33,6 +33,9 @@ Private Type tRetos
 End Type
 
 Public Sub LoadArenas()
+    If frmCargando.Visible Then
+        frmCargando.lblCargando(3).Caption = "Cargando Arenas"
+    End If
     Dim i       As Long
     Dim RetosIO As clsIniManager
     Set RetosIO = New clsIniManager

@@ -1,6 +1,6 @@
 VERSION 5.00
 Begin VB.Form FrmInterv 
-   BackColor       =   &H00FFC0C0&
+   BackColor       =   &H00404040&
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Intervalos"
    ClientHeight    =   6105
@@ -13,7 +13,7 @@ Begin VB.Form FrmInterv
    ScaleWidth      =   7650
    StartUpPosition =   2  'CenterScreen
    Begin VB.Frame Suerte 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00404040&
       Caption         =   "Suerte"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
@@ -24,13 +24,14 @@ Begin VB.Form FrmInterv
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
+      ForeColor       =   &H00E0E0E0&
       Height          =   1215
       Left            =   120
       TabIndex        =   55
       Top             =   4320
       Width           =   2055
       Begin VB.TextBox txtMinarSuerte 
-         BackColor       =   &H00C0FFFF&
+         BackColor       =   &H00808080&
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   8.25
@@ -48,7 +49,7 @@ Begin VB.Form FrmInterv
          Width           =   450
       End
       Begin VB.TextBox txtTalarSuerte 
-         BackColor       =   &H00C0FFFF&
+         BackColor       =   &H00808080&
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   8.25
@@ -66,7 +67,7 @@ Begin VB.Form FrmInterv
          Width           =   450
       End
       Begin VB.TextBox txtPescarSuerte 
-         BackColor       =   &H00C0FFFF&
+         BackColor       =   &H00808080&
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   8.25
@@ -84,7 +85,7 @@ Begin VB.Form FrmInterv
          Width           =   450
       End
       Begin VB.Label Label27 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00404040&
          Caption         =   "Mineria"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -95,6 +96,7 @@ Begin VB.Form FrmInterv
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
+         ForeColor       =   &H00E0E0E0&
          Height          =   255
          Left            =   1320
          TabIndex        =   61
@@ -102,7 +104,7 @@ Begin VB.Form FrmInterv
          Width           =   615
       End
       Begin VB.Label Label26 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00404040&
          Caption         =   "Talar"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -113,6 +115,7 @@ Begin VB.Form FrmInterv
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
+         ForeColor       =   &H00E0E0E0&
          Height          =   255
          Left            =   720
          TabIndex        =   60
@@ -120,7 +123,7 @@ Begin VB.Form FrmInterv
          Width           =   495
       End
       Begin VB.Label pesca 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00404040&
          Caption         =   "Pesca"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -131,6 +134,7 @@ Begin VB.Form FrmInterv
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
+         ForeColor       =   &H00E0E0E0&
          Height          =   255
          Left            =   120
          TabIndex        =   59
@@ -139,7 +143,7 @@ Begin VB.Form FrmInterv
       End
    End
    Begin VB.CommandButton Command2 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00C0C0C0&
       Caption         =   "Guardar Intervalos"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
@@ -158,7 +162,7 @@ Begin VB.Form FrmInterv
       Width           =   2895
    End
    Begin VB.CommandButton Command1 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00C0C0C0&
       Caption         =   "Aplicar"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
@@ -177,7 +181,7 @@ Begin VB.Form FrmInterv
       Width           =   2175
    End
    Begin VB.Frame Frame11 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00404040&
       Caption         =   "NPCs"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
@@ -188,13 +192,14 @@ Begin VB.Form FrmInterv
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
+      ForeColor       =   &H00E0E0E0&
       Height          =   2055
       Left            =   2880
       TabIndex        =   49
       Top             =   2160
       Width           =   1695
       Begin VB.Frame Frame4 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00404040&
          Caption         =   "A.I"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -205,13 +210,14 @@ Begin VB.Form FrmInterv
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
+         ForeColor       =   &H00E0E0E0&
          Height          =   1575
          Left            =   150
          TabIndex        =   50
          Top             =   240
          Width           =   1365
          Begin VB.TextBox txtAI 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -229,7 +235,7 @@ Begin VB.Form FrmInterv
             Width           =   1050
          End
          Begin VB.TextBox txtNPCPuedeAtacar 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -259,6 +265,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   165
             TabIndex        =   54
@@ -278,6 +285,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   150
             TabIndex        =   53
@@ -287,7 +295,7 @@ Begin VB.Form FrmInterv
       End
    End
    Begin VB.Frame Frame12 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00404040&
       Caption         =   "Clima && Ambiente"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
@@ -298,13 +306,14 @@ Begin VB.Form FrmInterv
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
+      ForeColor       =   &H00E0E0E0&
       Height          =   2055
       Left            =   4680
       TabIndex        =   39
       Top             =   2160
       Width           =   2865
       Begin VB.Frame Frame7 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00404040&
          Caption         =   "Frio y Fx Ambientales"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -315,13 +324,14 @@ Begin VB.Form FrmInterv
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
+         ForeColor       =   &H00E0E0E0&
          Height          =   1650
          Left            =   120
          TabIndex        =   40
          Top             =   240
          Width           =   2625
          Begin VB.TextBox txtCmdExec 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -339,7 +349,7 @@ Begin VB.Form FrmInterv
             Width           =   915
          End
          Begin VB.TextBox txtIntervaloPerdidaStaminaLluvia 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -357,7 +367,7 @@ Begin VB.Form FrmInterv
             Width           =   930
          End
          Begin VB.TextBox txtIntervaloWAVFX 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -375,7 +385,7 @@ Begin VB.Form FrmInterv
             Width           =   930
          End
          Begin VB.TextBox txtIntervaloFrio 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -405,6 +415,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   1320
             TabIndex        =   48
@@ -424,6 +435,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   1320
             TabIndex        =   47
@@ -443,6 +455,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   180
             TabIndex        =   46
@@ -462,6 +475,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   195
             TabIndex        =   45
@@ -471,7 +485,7 @@ Begin VB.Form FrmInterv
       End
    End
    Begin VB.Frame Frame6 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00404040&
       Caption         =   "Usuarios"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
@@ -482,13 +496,14 @@ Begin VB.Form FrmInterv
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
+      ForeColor       =   &H00E0E0E0&
       Height          =   2055
       Left            =   120
       TabIndex        =   3
       Top             =   0
       Width           =   7455
       Begin VB.Frame Frame9 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00404040&
          Caption         =   "Otros"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -499,13 +514,14 @@ Begin VB.Form FrmInterv
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
+         ForeColor       =   &H00E0E0E0&
          Height          =   1710
          Left            =   90
          TabIndex        =   24
          Top             =   210
          Width           =   1410
          Begin VB.TextBox txtIntervaloParaConexion 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -523,7 +539,7 @@ Begin VB.Form FrmInterv
             Width           =   930
          End
          Begin VB.TextBox txtTrabajo 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -553,6 +569,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   240
             TabIndex        =   28
@@ -572,6 +589,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   240
             TabIndex        =   27
@@ -580,7 +598,7 @@ Begin VB.Form FrmInterv
          End
       End
       Begin VB.Frame Frame8 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00404040&
          Caption         =   "Combate"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -591,13 +609,14 @@ Begin VB.Form FrmInterv
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
+         ForeColor       =   &H00E0E0E0&
          Height          =   1710
          Left            =   1545
          TabIndex        =   19
          Top             =   210
          Width           =   1410
          Begin VB.TextBox txtPuedeAtacar 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -615,7 +634,7 @@ Begin VB.Form FrmInterv
             Width           =   930
          End
          Begin VB.TextBox txtIntervaloLanzaHechizo 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -645,6 +664,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   135
             TabIndex        =   23
@@ -664,6 +684,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   150
             TabIndex        =   21
@@ -672,7 +693,7 @@ Begin VB.Form FrmInterv
          End
       End
       Begin VB.Frame Frame3 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00404040&
          Caption         =   "Hambre y sed"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -683,13 +704,14 @@ Begin VB.Form FrmInterv
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
+         ForeColor       =   &H00E0E0E0&
          Height          =   1710
          Left            =   5925
          TabIndex        =   14
          Top             =   210
          Width           =   1410
          Begin VB.TextBox txtIntervaloHambre 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -707,7 +729,7 @@ Begin VB.Form FrmInterv
             Width           =   1050
          End
          Begin VB.TextBox txtIntervaloSed 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -737,6 +759,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   180
             TabIndex        =   18
@@ -756,6 +779,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   165
             TabIndex        =   17
@@ -764,7 +788,7 @@ Begin VB.Form FrmInterv
          End
       End
       Begin VB.Frame Frame1 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00404040&
          Caption         =   "Sanar"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -775,13 +799,14 @@ Begin VB.Form FrmInterv
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
+         ForeColor       =   &H00E0E0E0&
          Height          =   1710
          Left            =   4470
          TabIndex        =   9
          Top             =   210
          Width           =   1410
          Begin VB.TextBox txtSanaIntervaloDescansar 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -799,7 +824,7 @@ Begin VB.Form FrmInterv
             Width           =   1050
          End
          Begin VB.TextBox txtSanaIntervaloSinDescansar 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -829,6 +854,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   180
             TabIndex        =   13
@@ -848,6 +874,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   165
             TabIndex        =   12
@@ -856,7 +883,7 @@ Begin VB.Form FrmInterv
          End
       End
       Begin VB.Frame Frame2 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00404040&
          Caption         =   "Stamina"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -867,13 +894,14 @@ Begin VB.Form FrmInterv
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
+         ForeColor       =   &H00E0E0E0&
          Height          =   1710
          Left            =   3015
          TabIndex        =   4
          Top             =   210
          Width           =   1410
          Begin VB.TextBox txtStaminaIntervaloSinDescansar 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -891,7 +919,7 @@ Begin VB.Form FrmInterv
             Width           =   1050
          End
          Begin VB.TextBox txtStaminaIntervaloDescansar 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -921,6 +949,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   165
             TabIndex        =   8
@@ -940,6 +969,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   180
             TabIndex        =   7
@@ -949,7 +979,7 @@ Begin VB.Form FrmInterv
       End
    End
    Begin VB.Frame Frame5 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00404040&
       Caption         =   "Magia"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
@@ -960,13 +990,14 @@ Begin VB.Form FrmInterv
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
+      ForeColor       =   &H00E0E0E0&
       Height          =   2055
       Left            =   120
       TabIndex        =   2
       Top             =   2160
       Width           =   2655
       Begin VB.Frame Frame10 
-         BackColor       =   &H00FFC0C0&
+         BackColor       =   &H00404040&
          Caption         =   "Duracion Spells"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -977,13 +1008,14 @@ Begin VB.Form FrmInterv
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
+         ForeColor       =   &H00E0E0E0&
          Height          =   1650
          Left            =   135
          TabIndex        =   29
          Top             =   270
          Width           =   2400
          Begin VB.TextBox txtInvocacion 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -1001,7 +1033,7 @@ Begin VB.Form FrmInterv
             Width           =   900
          End
          Begin VB.TextBox txtIntervaloInvisible 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -1019,7 +1051,7 @@ Begin VB.Form FrmInterv
             Width           =   900
          End
          Begin VB.TextBox txtIntervaloParalizado 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -1037,7 +1069,7 @@ Begin VB.Form FrmInterv
             Width           =   795
          End
          Begin VB.TextBox txtIntervaloVeneno 
-            BackColor       =   &H00C0FFFF&
+            BackColor       =   &H00808080&
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   8.25
@@ -1067,6 +1099,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   1170
             TabIndex        =   38
@@ -1086,6 +1119,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   1170
             TabIndex        =   35
@@ -1105,6 +1139,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   225
             TabIndex        =   33
@@ -1124,6 +1159,7 @@ Begin VB.Form FrmInterv
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            ForeColor       =   &H00E0E0E0&
             Height          =   195
             Left            =   225
             TabIndex        =   32
@@ -1133,7 +1169,7 @@ Begin VB.Form FrmInterv
       End
    End
    Begin VB.CommandButton ok 
-      BackColor       =   &H00FFC0C0&
+      BackColor       =   &H00C0C0C0&
       Cancel          =   -1  'True
       Caption         =   "Salir (Esc)"
       BeginProperty Font 
