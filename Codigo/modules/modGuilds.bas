@@ -31,7 +31,7 @@ Public Enum RELACIONES_GUILD
 End Enum
 
 Public Sub LoadGuildsDB()
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando guildsinfo.inf."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando guildsinfo.inf."
     Dim CantClanes As String
     Dim i          As Integer
     Dim TempStr    As String
@@ -49,7 +49,7 @@ Public Sub LoadGuildsDB()
         Alin = String2Alineacion(GetVar(GUILDINFOFILE, "GUILD" & i, "Alineacion"))
         Call guilds(i).Inicializar(TempStr, i, Alin)
     Next i
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Se cargo el archivo guildsinfo.inf."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Se cargo el archivo guildsinfo.inf."
 End Sub
 
 Public Function m_ConectarMiembroAClan(ByVal Userindex As Integer, ByVal GuildIndex As Integer) As Boolean

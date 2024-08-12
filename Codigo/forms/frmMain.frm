@@ -7,7 +7,7 @@ Begin VB.Form frmMain
    ClientHeight    =   6975
    ClientLeft      =   1950
    ClientTop       =   1515
-   ClientWidth     =   10425
+   ClientWidth     =   10215
    ControlBox      =   0   'False
    FillColor       =   &H00C0C0C0&
    BeginProperty Font 
@@ -26,43 +26,71 @@ Begin VB.Form frmMain
    MinButton       =   0   'False
    PaletteMode     =   1  'UseZOrder
    ScaleHeight     =   6975
-   ScaleWidth      =   10425
+   ScaleWidth      =   10215
    StartUpPosition =   2  'CenterScreen
    WindowState     =   1  'Minimized
+   Begin VB.Frame frameDebugSocket 
+      BackColor       =   &H00404040&
+      Caption         =   "Debug Socker"
+      ForeColor       =   &H00E0E0E0&
+      Height          =   3615
+      Left            =   5280
+      TabIndex        =   22
+      Top             =   720
+      Width           =   4815
+      Begin VB.CommandButton cmdLimpiar 
+         BackColor       =   &H00C0C0C0&
+         Caption         =   "Limpiar"
+         Height          =   375
+         Left            =   360
+         Style           =   1  'Graphical
+         TabIndex        =   24
+         Top             =   3120
+         Width           =   4000
+      End
+      Begin VB.ListBox lstDebug 
+         BackColor       =   &H80000007&
+         BeginProperty Font 
+            Name            =   "Consolas"
+            Size            =   9
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H0000FF00&
+         Height          =   2790
+         Left            =   135
+         TabIndex        =   23
+         Top             =   240
+         Width           =   4575
+      End
+   End
+   Begin VB.CommandButton cmdCrearCuenta 
+      BackColor       =   &H00C0C0C0&
+      Caption         =   "Crear Cuenta"
+      Height          =   375
+      Left            =   3000
+      Style           =   1  'Graphical
+      TabIndex        =   21
+      Top             =   4440
+      Width           =   2055
+   End
    Begin VB.TextBox txtRecordOnline 
       Alignment       =   2  'Center
       BackColor       =   &H00808080&
       Height          =   315
-      Left            =   9240
+      Left            =   7320
       Locked          =   -1  'True
-      TabIndex        =   17
+      TabIndex        =   14
       Text            =   "0"
       Top             =   240
       Width           =   975
    End
-   Begin VB.TextBox txtStatus 
-      BackColor       =   &H00000000&
-      BeginProperty Font 
-         Name            =   "Comic Sans MS"
-         Size            =   12
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H0080FFFF&
-      Height          =   1575
-      Left            =   5280
-      MultiLine       =   -1  'True
-      TabIndex        =   15
-      Text            =   "frmMain.frx":1042
-      Top             =   4800
-      Width           =   4935
-   End
    Begin InetCtlsObjects.Inet Inet1 
-      Left            =   9600
-      Top             =   2640
+      Left            =   9360
+      Top             =   6240
       _ExtentX        =   1005
       _ExtentY        =   1005
       _Version        =   393216
@@ -73,7 +101,7 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   120
       Style           =   1  'Graphical
-      TabIndex        =   13
+      TabIndex        =   12
       Top             =   6480
       Width           =   4935
    End
@@ -83,7 +111,7 @@ Begin VB.Form frmMain
       ForeColor       =   &H00E0E0E0&
       Height          =   255
       Left            =   120
-      TabIndex        =   12
+      TabIndex        =   11
       Top             =   4440
       Width           =   2775
    End
@@ -93,7 +121,7 @@ Begin VB.Form frmMain
       Height          =   315
       Left            =   2640
       Locked          =   -1  'True
-      TabIndex        =   11
+      TabIndex        =   10
       Text            =   "0"
       Top             =   240
       Width           =   975
@@ -104,7 +132,7 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   120
       Style           =   1  'Graphical
-      TabIndex        =   9
+      TabIndex        =   8
       Top             =   5880
       Width           =   1335
    End
@@ -114,7 +142,7 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   1560
       Style           =   1  'Graphical
-      TabIndex        =   8
+      TabIndex        =   7
       Top             =   5880
       Width           =   3495
    End
@@ -124,7 +152,7 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   120
       Style           =   1  'Graphical
-      TabIndex        =   7
+      TabIndex        =   6
       Top             =   5400
       Width           =   4935
    End
@@ -134,7 +162,7 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   120
       Style           =   1  'Graphical
-      TabIndex        =   6
+      TabIndex        =   5
       Top             =   4920
       Width           =   4935
    End
@@ -185,7 +213,7 @@ Begin VB.Form frmMain
          Height          =   2175
          Left            =   120
          MultiLine       =   -1  'True
-         TabIndex        =   10
+         TabIndex        =   9
          Top             =   1320
          Width           =   4695
       End
@@ -243,8 +271,8 @@ Begin VB.Form frmMain
       ForeColor       =   &H00FFFF80&
       Height          =   255
       Left            =   5400
-      TabIndex        =   23
-      Top             =   4440
+      TabIndex        =   20
+      Top             =   5640
       Width           =   4455
    End
    Begin VB.Label lblRespawnNpcs 
@@ -254,8 +282,8 @@ Begin VB.Form frmMain
       ForeColor       =   &H00E0E0E0&
       Height          =   255
       Left            =   5400
-      TabIndex        =   22
-      Top             =   3720
+      TabIndex        =   19
+      Top             =   4920
       Width           =   4455
    End
    Begin VB.Label lblCharSave 
@@ -265,8 +293,8 @@ Begin VB.Form frmMain
       ForeColor       =   &H000080FF&
       Height          =   255
       Left            =   5400
-      TabIndex        =   21
-      Top             =   3360
+      TabIndex        =   18
+      Top             =   4560
       Width           =   4455
    End
    Begin VB.Label lblWorldSave 
@@ -276,8 +304,8 @@ Begin VB.Form frmMain
       ForeColor       =   &H0080FF80&
       Height          =   255
       Left            =   5400
-      TabIndex        =   20
-      Top             =   4080
+      TabIndex        =   17
+      Top             =   5280
       Width           =   4455
    End
    Begin VB.Label lblIpHelpText 
@@ -299,8 +327,8 @@ Begin VB.Form frmMain
       ForeColor       =   &H00E0E0E0&
       Height          =   225
       Left            =   5400
-      TabIndex        =   19
-      Top             =   2880
+      TabIndex        =   16
+      Top             =   6000
       Width           =   2970
    End
    Begin VB.Label lblRecordOnline 
@@ -320,31 +348,10 @@ Begin VB.Form frmMain
       EndProperty
       ForeColor       =   &H00E0E0E0&
       Height          =   195
-      Left            =   7080
-      TabIndex        =   18
-      Top             =   360
-      Width           =   1965
-   End
-   Begin VB.Label lblIpTitle 
-      Alignment       =   2  'Center
-      BackStyle       =   0  'Transparent
-      BorderStyle     =   1  'Fixed Single
-      Caption         =   "IP:PUERTO - Comparti esta informacion a quien quieras que se conecte a tu servidor."
-      BeginProperty Font 
-         Name            =   "Comic Sans MS"
-         Size            =   14.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00E0E0E0&
-      Height          =   1215
       Left            =   5280
-      TabIndex        =   16
-      Top             =   840
-      Width           =   4695
+      TabIndex        =   15
+      Top             =   300
+      Width           =   1965
    End
    Begin VB.Label lblIp 
       Alignment       =   2  'Center
@@ -363,30 +370,9 @@ Begin VB.Form frmMain
       Height          =   615
       Left            =   5400
       MousePointer    =   3  'I-Beam
-      TabIndex        =   14
-      Top             =   2160
+      TabIndex        =   13
+      Top             =   6240
       Width           =   4335
-   End
-   Begin VB.Label Escuch 
-      BackColor       =   &H80000017&
-      BackStyle       =   0  'Transparent
-      Caption         =   "Label2"
-      BeginProperty Font 
-         Name            =   "Calibri"
-         Size            =   12
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H000000FF&
-      Height          =   375
-      Left            =   4320
-      TabIndex        =   5
-      Top             =   240
-      Visible         =   0   'False
-      Width           =   1695
    End
    Begin VB.Label CantUsuarios 
       Appearance      =   0  'Flat
@@ -620,7 +606,7 @@ End Sub
 Private Sub cmdApagarServidor_Click()
     If MsgBox("Realmente desea cerrar el servidor?", vbYesNo, "CIERRE DEL SERVIDOR!!!") = vbNo Then Exit Sub
     Me.MousePointer = 11
-    FrmStat.Show
+    frmStat.Show
     Call ES.DoBackUp
     Call mdParty.ActualizaExperiencias
     Call GuardarUsuarios
@@ -644,6 +630,10 @@ End Sub
 Private Sub cmdForzarCierre_Click()
     If MsgBox("Desea FORZAR el CIERRE del SERVIDOR?", vbYesNo, "CIERRE DEL SERVIDOR!!!") = vbNo Then Exit Sub
     Call CloseServer
+End Sub
+
+Private Sub cmdLimpiar_Click()
+    lstDebug.Clear
 End Sub
 
 Private Sub cmdSystray_Click()
@@ -720,7 +710,7 @@ End Sub
 
 Private Sub lblIp_Click()
     Clipboard.SetText (lblIp.Tag)
-    frmMain.txtStatus.Text = "Dirección IP copiada."
+    frmMain.lstDebug.AddItem "Dirección IP copiada."
 End Sub
 
 Private Sub lblIp_DblClick()

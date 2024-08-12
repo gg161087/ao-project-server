@@ -6,7 +6,7 @@ Option Explicit
 #End If
 
 Public Sub CargarSpawnList()
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando Invokar.dat"
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando Invokar.dat"
     ReDim SpawnList(1 To val(LeerNPCs.GetValue("INIT", "NumNPCs"))) As tCriaturasEntrenador
     Dim i As Integer: i = 0
     Dim LoopC As Long
@@ -19,7 +19,7 @@ Public Sub CargarSpawnList()
         End If
     Next
     ReDim Preserve SpawnList(1 To i) As tCriaturasEntrenador
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Lista de NPC's hostiles se cargo correctamente"
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Lista de NPC's hostiles se cargo correctamente"
 End Sub
 
 Function EsAdmin(ByRef Name As String) As Boolean
@@ -56,7 +56,7 @@ Public Function EsGmChar(ByRef Name As String) As Boolean
 End Function
 
 Public Sub loadAdministrativeUsers()
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando Administradores/Dioses/Gms."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando Administradores/Dioses/Gms."
     Dim buf  As Integer
     Dim i    As Long
     Dim Name As String
@@ -101,7 +101,7 @@ Public Sub loadAdministrativeUsers()
         Call Administradores.ChangeValue("RM", Name, "1")
     Next i
     Set ServerIni = Nothing
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Los Administradores/Dioses/Gms se han cargado correctamente."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Los Administradores/Dioses/Gms se han cargado correctamente."
 End Sub
 
 Public Function GetCharPrivs(ByRef UserName As String) As PlayerType
@@ -134,7 +134,7 @@ Public Function TxtDimension(ByVal Name As String) As Long
 End Function
 
 Public Sub CargarForbidenWords()
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando Nombres prohibidos (NombresInvalidos.txt)."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando Nombres prohibidos (NombresInvalidos.txt)."
     ReDim ForbidenNames(1 To TxtDimension(DatPath & "NombresInvalidos.txt"))
     Dim n As Integer, i As Integer
     n = FreeFile(1)
@@ -143,7 +143,7 @@ Public Sub CargarForbidenWords()
         Line Input #n, ForbidenNames(i)
     Next i
     Close n
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - NombresInvalidos.txt han cargado con exito."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - NombresInvalidos.txt han cargado con exito."
 End Sub
 
 Public Sub CargarHechizos()
@@ -151,7 +151,7 @@ Public Sub CargarHechizos()
     If frmCargando.Visible Then
         frmCargando.lblCargando(3).Caption = "Cargando Hechizos"
     End If
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando Hechizos."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando Hechizos."
     Dim Hechizo As Integer
     Dim Leer    As clsIniManager
     Set Leer = New clsIniManager
@@ -220,7 +220,7 @@ Public Sub CargarHechizos()
         End With
     Next Hechizo
     Set Leer = Nothing
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Los hechizos se han cargado con exito."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Los hechizos se han cargado con exito."
     Exit Sub
 ErrorHandler:
     MsgBox "Error cargando hechizos.dat " & Err.Number & ": " & Err.description
@@ -230,7 +230,7 @@ Sub LoadMotd()
     If frmCargando.Visible Then
         frmCargando.lblCargando(3).Caption = "Cargando MOTD"
     End If
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando archivo MOTD.INI."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando archivo MOTD.INI."
     Dim i As Integer
     MaxLines = val(GetVar(App.Path & "\Dat\Motd.ini", "INIT", "NumLines"))
     ReDim MOTD(1 To MaxLines)
@@ -238,11 +238,11 @@ Sub LoadMotd()
         MOTD(i).texto = GetVar(App.Path & "\Dat\Motd.ini", "Motd", "Line" & i)
         MOTD(i).Formato = vbNullString
     Next i
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - El archivo MOTD.INI fue cargado con exito"
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - El archivo MOTD.INI fue cargado con exito"
 End Sub
 
 Public Sub DoBackUp()
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Los hechizos se han cargado con exito."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Los hechizos se han cargado con exito."
     haciendoBK = True
     Call SendData(SendTarget.ToAll, 0, PrepareMessagePauseToggle())
     Call WorldSave
@@ -257,7 +257,7 @@ Public Sub DoBackUp()
     haciendoBK = False
     On Error Resume Next
     Dim nfile As Integer
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - El WorldSave (backup) se hizo correctamente."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - El WorldSave (backup) se hizo correctamente."
     nfile = FreeFile
     Open App.Path & "\logs\BackUps.log" For Append Shared As #nfile
     Print #nfile, Date & " " & time
@@ -375,25 +375,25 @@ Public Sub GrabarMapa(ByVal Map As Long, ByRef MAPFILE As String)
 End Sub
 
 Sub LoadArmasHerreria()
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando armas crafteables por Herreria."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando armas crafteables por Herreria."
     Dim n As Integer, lc As Integer
     n = val(GetVar(DatPath & "ArmasHerrero.dat", "INIT", "NumArmas"))
     ReDim Preserve ArmasHerrero(1 To n) As Integer
     For lc = 1 To n
         ArmasHerrero(lc) = val(GetVar(DatPath & "ArmasHerrero.dat", "Arma" & lc, "Index"))
     Next lc
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Se cargo las armas crafteables por Herreria. Operacion Realizada con exito."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Se cargo las armas crafteables por Herreria. Operacion Realizada con exito."
 End Sub
 
 Sub LoadArmadurasHerreria()
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando armaduras crafteables por Herreria."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando armaduras crafteables por Herreria."
     Dim n As Integer, lc As Integer
     n = val(GetVar(DatPath & "ArmadurasHerrero.dat", "INIT", "NumArmaduras"))
     ReDim Preserve ArmadurasHerrero(1 To n) As Integer
     For lc = 1 To n
         ArmadurasHerrero(lc) = val(GetVar(DatPath & "ArmadurasHerrero.dat", "Armadura" & lc, "Index"))
     Next lc
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Se cargo las armaduras crafteables por Herreria. Operacion Realizada con exito."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Se cargo las armaduras crafteables por Herreria. Operacion Realizada con exito."
 End Sub
 
 Sub LoadHerreria()
@@ -409,7 +409,7 @@ Sub LoadBalance()
     If frmCargando.Visible Then
         frmCargando.lblCargando(3).Caption = "Cargando Balance"
     End If
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando el archivo Balance.dat"
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando el archivo Balance.dat"
     For i = 1 To NUMCLASES
         With ModClase(i)
             .Evasion = val(GetVar(DatPath & "Balance.dat", "MODEVASION", ListaClases(i)))
@@ -445,35 +445,35 @@ Sub LoadBalance()
     For i = 1 To NUM_RANGOS_FACCION
         RecompensaFacciones(i - 1) = val(GetVar(DatPath & "Balance.dat", "RECOMPENSAFACCION", "Rango" & i))
     Next i
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Se cargo con exito el archivo Balance.dat"
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Se cargo con exito el archivo Balance.dat"
 End Sub
 
 Sub LoadObjCarpintero()
     If frmCargando.Visible Then
         frmCargando.lblCargando(3).Caption = "Cargando Carpintero"
     End If
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando los objetos crafteables via Carpinteria"
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando los objetos crafteables via Carpinteria"
     Dim n As Integer, lc As Integer
     n = val(GetVar(DatPath & "ObjCarpintero.dat", "INIT", "NumObjs"))
     ReDim Preserve ObjCarpintero(1 To n) As Integer
     For lc = 1 To n
         ObjCarpintero(lc) = val(GetVar(DatPath & "ObjCarpintero.dat", "Obj" & lc, "Index"))
     Next lc
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Se cargo con exito los objetos crafteables via Carpinteria."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Se cargo con exito los objetos crafteables via Carpinteria."
 End Sub
 
 Sub LoadObjArtesano()
     If frmCargando.Visible Then
         frmCargando.lblCargando(3).Caption = "Cargando Artesano"
     End If
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando los objetos crafteables del Artesano"
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando los objetos crafteables del Artesano"
     Dim n As Integer, lc As Integer
     n = val(GetVar(DatPath & "ObjArtesano.dat", "INIT", "NumObjs"))
     ReDim Preserve ObjArtesano(1 To n) As Integer
     For lc = 1 To n
         ObjArtesano(lc) = val(GetVar(DatPath & "ObjArtesano.dat", "Obj" & lc, "Index"))
     Next lc
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Se cargo con exito los objetos crafteables del Artesano."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Se cargo con exito los objetos crafteables del Artesano."
 End Sub
 
 Sub LoadOBJData()
@@ -481,7 +481,7 @@ Sub LoadOBJData()
     If frmCargando.Visible Then
         frmCargando.lblCargando(3).Caption = "Cargando Objetos"
     End If
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando base de datos de los objetos."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando base de datos de los objetos."
     Dim Object As Integer
     Dim Leer   As clsIniManager
     Set Leer = New clsIniManager
@@ -699,7 +699,7 @@ Sub LoadOBJData()
     Set Leer = Nothing
     Call AddForum(FORO_CAOS_ID)
     Call AddForum(FORO_REAL_ID)
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Se cargo base de datos de los objetos. Operacion Realizada con exito."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Se cargo base de datos de los objetos. Operacion Realizada con exito."
     Exit Sub
 ErrorHandler:
     MsgBox "error cargando objetos " & Err.Number & ": " & Err.description
@@ -894,7 +894,7 @@ Sub CargarBackUp()
     If frmCargando.Visible Then
         frmCargando.lblCargando(3).Caption = "Cargando Backup"
     End If
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando backup."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando backup."
     Dim Map       As Integer
     Dim tFileName As String
     On Error GoTo ErrorHandler
@@ -919,7 +919,7 @@ Sub CargarBackUp()
         DoEvents
     Next Map
     Exit Sub
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Se termino de cargar el backup."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Se termino de cargar el backup."
 ErrorHandler:
     MsgBox ("Error durante la carga de mapas, el mapa " & Map & " contiene errores")
     Call LogError(Date & " " & Err.description & " " & Err.HelpContext & " " & Err.HelpFile & " " & Err.source)
@@ -927,7 +927,7 @@ End Sub
 
 Sub LoadMapData()
     On Error GoTo ErrorHandler
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando mapas..."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando mapas..."
     Dim Map       As Integer
     Dim tFileName As String
     NumMaps = val(GetVar(DatPath & "Map.dat", "INIT", "NumMaps"))
@@ -947,7 +947,7 @@ Sub LoadMapData()
         DoEvents
     Next Map
     Exit Sub
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Se cargaron todos los mapas. Operacion Realizada con exito."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Se cargaron todos los mapas. Operacion Realizada con exito."
 ErrorHandler:
     MsgBox ("Error durante la carga de mapas, el mapa " & Map & " contiene errores")
     Call LogError(Date & " " & Err.description & " " & Err.HelpContext & " " & Err.HelpFile & " " & Err.source)
@@ -1078,7 +1078,7 @@ Sub LoadSini()
         frmCargando.lblCargando(3).Caption = "Cargando INI"
     End If
     If frmMain.Visible Then
-        frmMain.txtStatus.Text = "Cargando info de inicio del server."
+        frmMain.lstDebug.AddItem "Cargando info de inicio del server."
     End If
     Call Lector.Initialize(IniPath & "Server.ini")
     BootDelBackUp = CBool(val(Lector.GetValue("INIT", "IniciarDesdeBackUp")))
@@ -1209,14 +1209,14 @@ Sub LoadSini()
     Set ConsultaPopular = New ConsultasPopulares
     Call ConsultaPopular.LoadData
     Call loadAdministrativeUsers
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Se cargo la info de inicio del server (Sinfo.ini)"
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Se cargo la info de inicio del server (Sinfo.ini)"
 End Sub
 
 Sub CargarCiudades()
     If frmCargando.Visible Then
         frmCargando.lblCargando(3).Caption = "Cargando Ciudades"
     End If
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando Ciudades.dat"
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando Ciudades.dat"
     Dim Lector As clsIniManager: Set Lector = New clsIniManager
     Call Lector.Initialize(DatPath & "Ciudades.dat")
         With Ullathorpe
@@ -1289,7 +1289,7 @@ Sub CargarCiudades()
     Ciudades(eCiudad.cGotland) = Gotland
     Ciudades(eCiudad.cPerdida) = Perdida
     Ciudades(eCiudad.cTotem) = Totem
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Se cargaron las ciudades.dat"
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Se cargaron las ciudades.dat"
 End Sub
 
 Sub WriteVar(ByVal File As String, ByVal Main As String, ByVal Var As String, ByVal Value As String)
@@ -1523,7 +1523,7 @@ Sub BackUPnPc(ByVal NpcIndex As Integer, ByVal hFile As Integer)
 End Sub
 
 Sub CargarNpcBackUp(ByVal NpcIndex As Integer, ByVal NpcNumber As Integer)
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando backup Npc"
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando backup Npc"
     Dim npcfile As String
     npcfile = DatPath & "bkNPCs.dat"
     With Npclist(NpcIndex)
@@ -1574,7 +1574,7 @@ Sub CargarNpcBackUp(ByVal NpcIndex As Integer, ByVal NpcNumber As Integer)
         .flags.RespawnOrigPos = val(GetVar(npcfile, "NPC" & NpcNumber, "OrigPos"))
         .TipoItems = val(GetVar(npcfile, "NPC" & NpcNumber, "TipoItems"))
     End With
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Se cargo el archivo bkNPCs.dat"
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Se cargo el archivo bkNPCs.dat"
 End Sub
 
 Sub Ban(ByVal BannedName As String, ByVal Baneador As String, ByVal Motivo As String)
@@ -1591,11 +1591,11 @@ Public Sub CargaApuestas()
     If frmCargando.Visible Then
         frmCargando.lblCargando(3).Caption = "Cargando Apuestas"
     End If
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando apuestas.dat"
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando apuestas.dat"
     Apuestas.Ganancias = val(GetVar(DatPath & "apuestas.dat", "Main", "Ganancias"))
     Apuestas.Perdidas = val(GetVar(DatPath & "apuestas.dat", "Main", "Perdidas"))
     Apuestas.Jugadas = val(GetVar(DatPath & "apuestas.dat", "Main", "Jugadas"))
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Se cargo el archivo apuestas.dat"
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Se cargo el archivo apuestas.dat"
 End Sub
 
 Public Sub generateMatrix(ByVal Mapa As Integer)
@@ -1687,7 +1687,7 @@ Public Sub LoadArmadurasFaccion()
     If frmCargando.Visible Then
         frmCargando.lblCargando(3).Caption = "Cargando Faccion"
     End If
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando armaduras faccionarias"
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando armaduras faccionarias"
     Dim ClassIndex    As Long
     Dim ArmaduraIndex As Integer
     For ClassIndex = 1 To NUMCLASES
@@ -1734,7 +1734,7 @@ Public Sub LoadArmadurasFaccion()
         ArmadurasFaccion(ClassIndex, eRaza.Enano).Caos(eTipoDefArmors.ieAlta) = ArmaduraIndex
         ArmadurasFaccion(ClassIndex, eRaza.Gnomo).Caos(eTipoDefArmors.ieAlta) = ArmaduraIndex
     Next ClassIndex
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Se cargo el archivo ArmadurasFaccionarias.dat"
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Se cargo el archivo ArmadurasFaccionarias.dat"
 End Sub
 
 Sub SendUserBovedaTxtFromCharfile(ByVal sendIndex As Integer, ByVal charName As String)

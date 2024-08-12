@@ -72,7 +72,7 @@ End Function
 
 Sub ReSpawnOrigPosNpcs()
     On Error Resume Next
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Haciendo ReSpawn de NPCS en posicion original"
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Haciendo ReSpawn de NPCS en posicion original"
     Dim i     As Integer
     Dim MiNPC As npc
     For i = 1 To LastNPC
@@ -84,7 +84,7 @@ Sub ReSpawnOrigPosNpcs()
             End If
         End If
     Next i
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Respawn NPCS en posicion original finalizado."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Respawn NPCS en posicion original finalizado."
 End Sub
 
 Sub WorldSave()
@@ -97,16 +97,16 @@ Sub WorldSave()
     For j = 1 To NumMaps
         If MapInfo(j).BackUp = 1 Then K = K + 1
     Next j
-    FrmStat.ProgressBar1.min = 0
-    FrmStat.ProgressBar1.max = K
-    FrmStat.ProgressBar1.Value = 0
+    frmStat.ProgressBar1.min = 0
+    frmStat.ProgressBar1.max = K
+    frmStat.ProgressBar1.Value = 0
     For loopX = 1 To NumMaps
         If MapInfo(loopX).BackUp = 1 Then
             Call GrabarMapa(loopX, App.Path & "\WorldBackUp\Mapa" & loopX)
-            FrmStat.ProgressBar1.Value = FrmStat.ProgressBar1.Value + 1
+            frmStat.ProgressBar1.Value = frmStat.ProgressBar1.Value + 1
         End If
     Next loopX
-    FrmStat.Visible = False
+    frmStat.Visible = False
     If FileExist(DatPath & "\bkNpcs.dat") Then Kill (DatPath & "bkNpcs.dat")
     hFile = FreeFile()
     Open DatPath & "\bkNpcs.dat" For Output As hFile

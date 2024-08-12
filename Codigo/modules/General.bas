@@ -362,7 +362,7 @@ Private Sub SocketConfig()
     Else
         Call MsgBox("Ha ocurrido un error al iniciar el socket del Servidor.", vbCritical + vbOKOnly)
     End If
-    frmMain.txtStatus.Text = Date & " " & time & " - Escuchando conexiones entrantes ..."
+    frmMain.lstDebug.AddItem Date & " " & time & " - Escuchando conexiones entrantes ..."
 End Sub
 
 Function FileExist(ByVal File As String, Optional FileType As VbFileAttribute = vbNormal) As Boolean
@@ -406,7 +406,7 @@ End Function
 
 Sub Restart()
     On Error Resume Next
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Reiniciando."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Reiniciando."
     Dim LoopC As Long
     If SockListen >= 0 Then Call apiclosesocket(SockListen)
     SockListen = ListenForConnect(Puerto, hWndMsg, "")
@@ -434,7 +434,7 @@ Sub Restart()
     Call LoadOBJData
     Call LoadMapData
     Call CargarHechizos
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " servidor reiniciado correctamente. - Escuchando conexiones entrantes ..."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " servidor reiniciado correctamente. - Escuchando conexiones entrantes ..."
     Dim n As Integer
     n = FreeFile
     Open App.Path & "\logs\Main.log" For Append Shared As #n
@@ -785,7 +785,7 @@ Public Sub CargaNpcsDat(Optional ByVal ForzarActualizacionNpcsExistentes As Bool
     If frmCargando.Visible Then
         frmCargando.lblCargando(3).Caption = "Cargando NPCs"
     End If
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Cargando NPCs.dat."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Cargando NPCs.dat."
     Set LeerNPCs = New clsIniManager
     Call LeerNPCs.Initialize(DatPath & "NPCs.dat")
     Call CargarSpawnList
@@ -798,7 +798,7 @@ Public Sub CargaNpcsDat(Optional ByVal ForzarActualizacionNpcsExistentes As Bool
             DoEvents
         Next i
     End If
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Se cargo el archivo NPCs.dat."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Se cargo el archivo NPCs.dat."
 End Sub
 
 Public Function ReiniciarAutoUpdate() As Double

@@ -372,6 +372,7 @@ Public Function HandleIncomingData(ByVal Userindex As Integer) As Boolean
         End If
         .flags.NoPuedeSerAtacado = False
     End With
+    frmMain.lstDebug.AddItem " < [" & Userindex & "] PacketID: " & packetID
     Select Case packetID
         Case ClientPacketID.SendIfCharIsInChatMode
             Call HandleSendIfCharIsInChatMode(Userindex)
@@ -11294,6 +11295,7 @@ Private Sub HandleLoginExistingAccount(ByVal Userindex As Integer)
     If Not VersionOK(version) Then
         Call WriteErrorMsg(Userindex, "Esta version del juego es obsoleta, la ultima version es la " & ULTIMAVERSION & ". Tu Version " & version & ". La misma se encuentra disponible en www.argentumonline.org")
     Else
+        frmMain.lstDebug.AddItem "Iniciando " & UserName
         Call ConnectAccount(Userindex, UserName, Password)
     End If
     Exit Sub

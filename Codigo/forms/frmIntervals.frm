@@ -1,5 +1,5 @@
 VERSION 5.00
-Begin VB.Form FrmInterv 
+Begin VB.Form frmIntervals 
    BackColor       =   &H00404040&
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Intervalos"
@@ -1189,7 +1189,7 @@ Begin VB.Form FrmInterv
       Width           =   2055
    End
 End
-Attribute VB_Name = "FrmInterv"
+Attribute VB_Name = "frmIntervals"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True

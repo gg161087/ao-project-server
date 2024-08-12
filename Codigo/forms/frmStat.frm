@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0"; "comctl32.ocx"
-Begin VB.Form FrmStat 
+Begin VB.Form frmStat 
    BackColor       =   &H00C0C0C0&
    BorderStyle     =   3  'Fixed Dialog
    ClientHeight    =   1095
@@ -49,7 +49,7 @@ Begin VB.Form FrmStat
       Width           =   1800
    End
 End
-Attribute VB_Name = "FrmStat"
+Attribute VB_Name = "frmStat"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True

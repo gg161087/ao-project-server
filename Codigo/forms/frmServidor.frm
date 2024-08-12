@@ -314,7 +314,7 @@ Private Sub cmdCharBackup_Click()
 End Sub
 
 Private Sub cmdConfigIntervalos_Click()
-    FrmInterv.Show
+    frmIntervals.Show
 
 End Sub
 
@@ -328,8 +328,8 @@ End Sub
 
 Private Sub cmdLoadWorldBackup_Click()
     On Error Resume Next
-    If frmMain.Visible Then frmMain.txtStatus.Text = "Reiniciando."
-    FrmStat.Show
+    If frmMain.Visible Then frmMain.lstDebug.AddItem "Reiniciando."
+    frmStat.Show
     If FileExist(App.Path & "\logs\errores.log", vbNormal) Then Kill App.Path & "\logs\errores.log"
     If FileExist(App.Path & "\logs\connect.log", vbNormal) Then Kill App.Path & "\logs\Connect.log"
     If FileExist(App.Path & "\logs\HackAttemps.log", vbNormal) Then Kill App.Path & "\logs\HackAttemps.log"
@@ -349,7 +349,7 @@ Private Sub cmdLoadWorldBackup_Click()
     Call CargarBackUp
     Call LoadOBJData
     SockListen = ListenForConnect(Puerto, hWndMsg, vbNullString)
-    If frmMain.Visible Then frmMain.txtStatus.Text = Date & " " & time & " - Reiniciando Terminado. Escuchando conexiones entrantes ..."
+    If frmMain.Visible Then frmMain.lstDebug.AddItem Date & " " & time & " - Reiniciando Terminado. Escuchando conexiones entrantes ..."
 End Sub
 
 Private Sub cmdPausarServidor_Click()
@@ -433,7 +433,7 @@ End Sub
 Private Sub cmdWorldBackup_Click()
     On Error GoTo ErrorHandler
     Me.MousePointer = 11
-    FrmStat.Show
+    frmStat.Show
     Call ES.DoBackUp
     Me.MousePointer = 0
     MsgBox "WORLDSAVE OK!!"
