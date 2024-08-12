@@ -83,6 +83,7 @@ Class=clsSecurity; Codigo\class_modules\clsSecurity.cls
 Module=Evento_Pesca; Codigo\modules\Evento_Pesca.bas
 Class=cWorldPos; Codigo\class_modules\cWorldPos.cls
 Class=clsSubclass; Codigo\class_modules\clsSubClass.cls
+Form=Codigo\forms\frmNewAcc.frm
 IconForm="frmMain"
 Startup="Sub Main"
 HelpFile=""

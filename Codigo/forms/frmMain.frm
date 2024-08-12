@@ -618,6 +618,10 @@ Private Sub cmdConfiguracion_Click()
     frmServidor.Visible = True
 End Sub
 
+Private Sub cmdCrearCuenta_Click()
+    frmNewAcc.Show
+End Sub
+
 Private Sub CMDDUMP_Click()
     On Error Resume Next
     Dim i As Integer

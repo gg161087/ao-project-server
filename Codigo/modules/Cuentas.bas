@@ -1,5 +1,34 @@
 Attribute VB_Name = "Cuentas"
 Option Explicit
+Public Function SaveDataNew(ByVal UserName As String, ByVal Passwd As String) As Boolean
+    On Error GoTo ErrorHandler
+    Dim Manager As clsIniManager
+    Dim AccountFile As String
+    Dim Salt    As String
+    Dim oSHA256 As CSHA256
+    Set Manager = New clsIniManager
+    Set oSHA256 = New CSHA256
+    If Not CheckMailString(UserName) Or LenB(UserName) = 0 Then
+        MsgBox ("Username: " & UserName & " Nombre invalido.")
+        Exit Function
+    End If
+    If CuentaExiste(UserName) Then
+        MsgBox (UserName & " Ya existe la cuenta.")
+        Exit Function
+    End If
+    Salt = RandomString(10)
+    Call SaveNewAccount(UserName, oSHA256.SHA256(Passwd & Salt), Salt)
+    If ConexionAPI Then
+        Call ApiEndpointSendWelcomeEmail(UserName, Passwd, UserName)
+    End If
+    SaveDataNew = True
+    Exit Function
+ErrorHandler:
+    LogError Err.description & vbCrLf & "in AOProjectServer.Cuentas.SaveDataNew " & "at line " & Erl
+    SaveDataNew = False
+    Set Manager = Nothing
+    Set oSHA256 = Nothing
+End Function
 
 Sub LoadUserFromCharfile(ByVal Userindex As Integer)
     Dim Leer As clsIniManager

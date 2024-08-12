@@ -372,7 +372,7 @@ Public Function HandleIncomingData(ByVal Userindex As Integer) As Boolean
         End If
         .flags.NoPuedeSerAtacado = False
     End With
-    frmMain.lstDebug.AddItem " < [" & Userindex & "] PacketID: " & packetID
+    frmMain.lstDebug.AddItem "Handler in coming Data: < [" & Userindex & "] PacketID: " & packetID
     Select Case packetID
         Case ClientPacketID.SendIfCharIsInChatMode
             Call HandleSendIfCharIsInChatMode(Userindex)
