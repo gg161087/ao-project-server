@@ -12,7 +12,7 @@ Begin VB.Form frmConID
    ScaleHeight     =   4440
    ScaleWidth      =   4680
    StartUpPosition =   2  'CenterScreen
-   Begin VB.CommandButton Command3 
+   Begin VB.CommandButton cmdLiberarTodosSlots 
       BackColor       =   &H00C0C0C0&
       Caption         =   "Liberar todos los slots"
       BeginProperty Font 
@@ -31,7 +31,7 @@ Begin VB.Form frmConID
       Top             =   3495
       Width           =   4290
    End
-   Begin VB.CommandButton Command2 
+   Begin VB.CommandButton cmdVerEstado 
       BackColor       =   &H00C0C0C0&
       Caption         =   "Ver estado"
       BeginProperty Font 
@@ -67,7 +67,7 @@ Begin VB.Form frmConID
       Top             =   150
       Width           =   4215
    End
-   Begin VB.CommandButton Command1 
+   Begin VB.CommandButton cmdCerrar 
       BackColor       =   &H00C0C0C0&
       Caption         =   "Cerrar"
       BeginProperty Font 
@@ -111,11 +111,11 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Sub Command1_Click()
+Private Sub cmdCerrar_Click()
     Unload Me
 End Sub
 
-Private Sub Command2_Click()
+Private Sub cmdVerEstado_Click()
     List1.Clear
     Dim c As Integer
     Dim i As Integer
@@ -130,7 +130,7 @@ Private Sub Command2_Click()
     End If
 End Sub
 
-Private Sub Command3_Click()
+Private Sub cmdLiberarTodosSlots_Click()
     Dim i As Integer
     For i = 1 To MaxUsers
         If UserList(i).ConnID <> -1 And UserList(i).ConnIDValida And Not UserList(i).flags.UserLogged Then Call CloseSocket(i)

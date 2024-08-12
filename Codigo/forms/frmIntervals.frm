@@ -142,7 +142,7 @@ Begin VB.Form frmIntervals
          Width           =   615
       End
    End
-   Begin VB.CommandButton Command2 
+   Begin VB.CommandButton cmdGuardarIntervalos 
       BackColor       =   &H00C0C0C0&
       Caption         =   "Guardar Intervalos"
       BeginProperty Font 
@@ -161,7 +161,7 @@ Begin VB.Form frmIntervals
       Top             =   5640
       Width           =   2895
    End
-   Begin VB.CommandButton Command1 
+   Begin VB.CommandButton cmdAplicar 
       BackColor       =   &H00C0C0C0&
       Caption         =   "Aplicar"
       BeginProperty Font 
@@ -1168,7 +1168,7 @@ Begin VB.Form frmIntervals
          End
       End
    End
-   Begin VB.CommandButton ok 
+   Begin VB.CommandButton cmdSalir 
       BackColor       =   &H00C0C0C0&
       Cancel          =   -1  'True
       Caption         =   "Salir (Esc)"
@@ -1218,12 +1218,12 @@ Public Sub AplicarIntervalos()
     DificultadMinar = val(txtMinarSuerte.Text)
 End Sub
 
-Private Sub Command1_Click()
+Private Sub cmdAplicar_Click()
     On Error Resume Next
     Call AplicarIntervalos
 End Sub
 
-Private Sub Command2_Click()
+Private Sub cmdGuardarIntervalos_Click()
     On Error GoTo ErrorHandler
     Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "SanaIntervaloSinDescansar", Str(SanaIntervaloSinDescansar))
     Call WriteVar(IniPath & "Server.ini", "INTERVALOS", "StaminaIntervaloSinDescansar", Str(StaminaIntervaloSinDescansar))
@@ -1274,6 +1274,6 @@ Private Sub Form_Load()
     End With
 End Sub
 
-Private Sub ok_Click()
+Private Sub cmdSalir_Click()
     Me.Visible = False
 End Sub

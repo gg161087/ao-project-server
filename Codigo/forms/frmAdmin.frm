@@ -31,7 +31,7 @@ Begin VB.Form frmAdmin
       TabIndex        =   0
       Top             =   120
       Width           =   4215
-      Begin VB.TextBox Text1 
+      Begin VB.TextBox txtPjInfo 
          BackColor       =   &H00808080&
          Enabled         =   0   'False
          Height          =   495
@@ -42,7 +42,7 @@ Begin VB.Form frmAdmin
          Top             =   720
          Width           =   3135
       End
-      Begin VB.CommandButton Command3 
+      Begin VB.CommandButton cmdEcharTodos 
          BackColor       =   &H00C0C0C0&
          Caption         =   "Echar todos los PJS no privilegiados"
          BeginProperty Font 
@@ -88,7 +88,7 @@ Begin VB.Form frmAdmin
          Top             =   360
          Width           =   3135
       End
-      Begin VB.CommandButton Command1 
+      Begin VB.CommandButton cmdEchar 
          BackColor       =   &H00C0C0C0&
          Caption         =   "Echar"
          BeginProperty Font 
@@ -124,15 +124,6 @@ Private Sub cboPjs_Click()
     Call ActualizaPjInfo
 End Sub
 
-Private Sub Command1_Click()
-    Dim tIndex As Long
-    tIndex = NameIndex(cboPjs.Text)
-    If tIndex > 0 Then
-        Call SendData(SendTarget.ToAll, 0, PrepareMessageConsoleMsg("Servidor> " & UserList(tIndex).Name & " ha sido echado.", FontTypeNames.FONTTYPE_SERVER))
-        Call CloseSocket(tIndex)
-    End If
-End Sub
-
 Public Sub ActualizaListaPjs()
     Dim LoopC As Long
     With cboPjs
@@ -148,16 +139,25 @@ Public Sub ActualizaListaPjs()
     End With
 End Sub
 
-Private Sub Command3_Click()
-    Call EcharPjsNoPrivilegiados
-End Sub
-
 Private Sub ActualizaPjInfo()
     Dim tIndex As Long
     tIndex = NameIndex(cboPjs.Text)
     If tIndex > 0 Then
         With UserList(tIndex)
-            Text1.Text = .outgoingData.Length & " elementos en cola." & vbCrLf
+            txtPjInfo.Text = .outgoingData.Length & " elementos en cola." & vbCrLf
         End With
     End If
+End Sub
+
+Private Sub cmdEchar_Click()
+    Dim tIndex As Long
+    tIndex = NameIndex(cboPjs.Text)
+    If tIndex > 0 Then
+        Call SendData(SendTarget.ToAll, 0, PrepareMessageConsoleMsg("Servidor> " & UserList(tIndex).Name & " ha sido echado.", FontTypeNames.FONTTYPE_SERVER))
+        Call CloseSocket(tIndex)
+    End If
+End Sub
+
+Private Sub cmdEcharTodos_Click()
+    Call EcharPjsNoPrivilegiados
 End Sub

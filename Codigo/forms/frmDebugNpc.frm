@@ -12,7 +12,7 @@ Begin VB.Form frmDebugNpc
    ScaleHeight     =   2460
    ScaleWidth      =   4680
    StartUpPosition =   2  'CenterScreen
-   Begin VB.CommandButton Command2 
+   Begin VB.CommandButton cmdSalir 
       BackColor       =   &H00C0C0C0&
       Cancel          =   -1  'True
       Caption         =   "Salir (Esc)"
@@ -32,7 +32,7 @@ Begin VB.Form frmDebugNpc
       Top             =   2085
       Width           =   4455
    End
-   Begin VB.CommandButton Command1 
+   Begin VB.CommandButton cmdActualizarInfor 
       BackColor       =   &H00C0C0C0&
       Caption         =   "ActualizarInfo"
       BeginProperty Font 
@@ -135,7 +135,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Sub Command1_Click()
+Private Sub cmdActualizarInfor_Click()
     Dim i As Integer, K As Integer
     For i = 1 To LastNPC
         If Npclist(i).flags.NPCActive Then K = K + 1
@@ -146,7 +146,7 @@ Private Sub Command1_Click()
     Label4.Caption = "MAXNPCS:" & MAXNPCS
 End Sub
 
-Private Sub Command2_Click()
+Private Sub cmdSalir_Click()
     Unload Me
 End Sub
 

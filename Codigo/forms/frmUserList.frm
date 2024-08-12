@@ -12,7 +12,7 @@ Begin VB.Form frmUserList
    ScaleHeight     =   4665
    ScaleWidth      =   5520
    StartUpPosition =   2  'CenterScreen
-   Begin VB.CommandButton Command2 
+   Begin VB.CommandButton cmdEcharTodosLosNoLogged 
       BackColor       =   &H00C0C0C0&
       Caption         =   "Echar todos los no Logged"
       BeginProperty Font 
@@ -71,7 +71,7 @@ Begin VB.Form frmUserList
       Top             =   120
       Width           =   3015
    End
-   Begin VB.CommandButton Command1 
+   Begin VB.CommandButton cmdActualiza 
       BackColor       =   &H00C0C0C0&
       Caption         =   "Actualiza"
       BeginProperty Font 
@@ -115,7 +115,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Sub Command1_Click()
+Private Sub cmdActualiza_Click()
     Dim LoopC As Integer
     Text2.Text = "MaxUsers: " & MaxUsers & vbCrLf
     Text2.Text = Text2.Text & "LastUser: " & LastUser & vbCrLf
@@ -127,7 +127,7 @@ Private Sub Command1_Click()
     Next LoopC
 End Sub
 
-Private Sub Command2_Click()
+Private Sub cmdEcharTodosLosNoLogged_Click()
     Dim LoopC As Integer
     For LoopC = 1 To MaxUsers
         If UserList(LoopC).ConnID <> -1 And Not UserList(LoopC).flags.UserLogged Then

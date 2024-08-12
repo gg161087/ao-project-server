@@ -14,7 +14,7 @@ Begin VB.Form frmTrafic
    ScaleHeight     =   2850
    ScaleWidth      =   4680
    StartUpPosition =   2  'CenterScreen
-   Begin VB.CommandButton Command1 
+   Begin VB.CommandButton cmdSalir 
       BackColor       =   &H00C0C0C0&
       Cancel          =   -1  'True
       Caption         =   "Salir (Esc)"
@@ -59,6 +59,6 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Sub Command1_Click()
+Private Sub cmdSalir_Click()
     Me.Visible = False
 End Sub
