@@ -1,4 +1,4 @@
-Attribute VB_Name = "ModFacciones"
+Attribute VB_Name = "modFacciones"
 Option Explicit
 
 Public ArmaduraImperial1              As Integer

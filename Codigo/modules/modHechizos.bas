@@ -43,7 +43,7 @@ Sub NpcLanzaSpellSobreUser(ByVal NpcIndex As Integer, ByVal Userindex As Integer
                     MasterIndex = Npclist(NpcIndex).MaestroUser
                     If MasterIndex > 0 Then
                         If .flags.AtacablePor <> MasterIndex Then
-                            Call Statistics.StoreFrag(MasterIndex, Userindex)
+                            Call modStatistics.StoreFrag(MasterIndex, Userindex)
                             Call ContarMuerte(Userindex, MasterIndex)
                         End If
                         Call ActStats(Userindex, MasterIndex)
@@ -334,7 +334,7 @@ Sub HechizoInvocacion(ByVal Userindex As Integer, ByRef HechizoCasteado As Boole
             Exit Sub
         End If
         Dim SpellIndex As Integer, NroNpcs As Integer, NpcIndex As Integer, PetIndex As Integer
-        Dim TargetPos  As WorldPos
+        Dim TargetPos  As tWorldPos
         TargetPos.Map = .flags.TargetMap
         TargetPos.X = .flags.TargetX
         TargetPos.Y = .flags.TargetY
@@ -1346,7 +1346,7 @@ Public Function HechizoPropUsuario(ByVal Userindex As Integer) As Boolean
             Call WriteConsoleMsg(targetIndex, UserList(Userindex).Name & " te ha quitado " & dano & " puntos de vida.", FontTypeNames.FONTTYPE_FIGHT)
             If .Stats.MinHp < 1 Then
                 If .flags.AtacablePor <> Userindex Then
-                    Call Statistics.StoreFrag(Userindex, targetIndex)
+                    Call modStatistics.StoreFrag(Userindex, targetIndex)
                     Call ContarMuerte(targetIndex, Userindex)
                 End If
                 .Stats.MinHp = 0

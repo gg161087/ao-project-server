@@ -307,7 +307,7 @@ End Sub
 
 Private Sub cmdCharBackup_Click()
     Me.MousePointer = 11
-    Call mdParty.ActualizaExperiencias
+    Call modParty.ActualizaExperiencias
     Call GuardarUsuarios
     Me.MousePointer = 0
     MsgBox "Grabado de personajes OK!"
@@ -371,7 +371,7 @@ End Sub
 Private Sub cmdReiniciar_Click()
     If MsgBox("Atencion!! Si reinicia el servidor puede provocar la perdida de datos de los usarios. " & "Desea reiniciar el servidor de todas maneras?", vbYesNo) = vbNo Then Exit Sub
     Me.Visible = False
-    Call General.Restart
+    Call modGeneral.Restart
 End Sub
 
 Private Sub cmdResetListen_Click()
@@ -434,7 +434,7 @@ Private Sub cmdWorldBackup_Click()
     On Error GoTo ErrorHandler
     Me.MousePointer = 11
     frmStat.Show
-    Call ES.DoBackUp
+    Call modES.DoBackUp
     Me.MousePointer = 0
     MsgBox "WORLDSAVE OK!!"
     Exit Sub

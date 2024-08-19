@@ -1,4 +1,4 @@
-Attribute VB_Name = "Areas"
+Attribute VB_Name = "modAreas"
 Option Explicit
 
 Public Const XMaxMapSize        As Byte = 100

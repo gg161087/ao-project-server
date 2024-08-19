@@ -409,13 +409,13 @@ Private Function ContarVotos(ByRef CantGanadores As Integer) As String
     Dim i     As Integer
     Dim Temps As String
     Dim tempV As String
-    Dim d     As diccionario
+    Dim d     As clsDiccionario
     ContarVotos = vbNullString
     CantGanadores = 0
     Temps = GetVar(MEMBERSFILE, "INIT", "NroMembers")
     q = IIf(IsNumeric(Temps), CInt(Temps), 0)
     If q > 0 Then
-        Set d = New diccionario
+        Set d = New clsDiccionario
         For i = 1 To q
             Temps = GetVar(MEMBERSFILE, "MEMBERS", "Member" & i)
             tempV = GetVar(VOTACIONESFILE, "VOTOS", Temps)

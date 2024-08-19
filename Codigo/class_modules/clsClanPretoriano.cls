@@ -18,8 +18,8 @@ Public Enum ePretorianType
     Custom = 2
 End Enum
 
-Private LeftSpawnPos  As WorldPos
-Private RightSpawnPos As WorldPos
+Private LeftSpawnPos  As tWorldPos
+Private RightSpawnPos As tWorldPos
 
 Private Enum eKingSpells
     LittleHeal = 1
@@ -85,7 +85,7 @@ Private KingIdleTime                 As Long
 Private Const ALLY_RESPAWN_TIME      As Long = 2000
 Private Const MAX_DISTANCE           As Integer = 14
 Private Const NRO_PRETORIANOS        As Integer = 9
-Private CenterPos                    As WorldPos
+Private CenterPos                    As tWorldPos
 Private RespawnClan                  As Boolean
 Private ClanMembersAlive             As Integer
 
@@ -99,7 +99,7 @@ Private Pretorianos() As tPretorianData
 
 Public Function SpawnClan(ByVal Mapa As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal PretoClanIndex As Integer, Optional ByVal Respawning As Boolean = False) As Boolean
     On Error GoTo ErrorHandler
-    Dim nPos       As WorldPos
+    Dim nPos       As tWorldPos
     Dim PretoIndex As Integer
     CenterPos.Map = Mapa
     CenterPos.X = X
@@ -172,8 +172,8 @@ Private Sub InitializePretoriansVars()
     RightSpawnPos.Y = 25
 End Sub
 
-Private Sub SpawnPretorian(ByRef SpawnPos As WorldPos, ByVal PretorianAI As Byte, ByVal PretoIndex As Integer, Optional ByVal IsKing As Boolean = False)
-    Dim FinalPos       As WorldPos
+Private Sub SpawnPretorian(ByRef SpawnPos As tWorldPos, ByVal PretorianAI As Byte, ByVal PretoIndex As Integer, Optional ByVal IsKing As Boolean = False)
+    Dim FinalPos       As tWorldPos
     Dim NpcIndex       As Integer
     Dim Head           As Integer
     Dim PretoDatNumber As Integer
@@ -337,15 +337,15 @@ Private Function KingBestTarget(ByVal NpcIndex As Integer, ByRef Accion As Byte)
         CounterStep = RandomNumber(0, 1)
         If CounterStep = 1 Then
             CounterStart = 1
-            CounterEnd = Areas.ConnGroups(Mapa).Count()
+            CounterEnd = modAreas.ConnGroups(Mapa).Count()
         Else
-            CounterStart = Areas.ConnGroups(Mapa).Count()
+            CounterStart = modAreas.ConnGroups(Mapa).Count()
             CounterEnd = 1
             CounterStep = -1
 
         End If
         For Counter = CounterStart To CounterEnd Step CounterStep
-            Userindex = Areas.ConnGroups(Mapa).Item(Counter)
+            Userindex = modAreas.ConnGroups(Mapa).Item(Counter)
             If InVisionRange(Userindex, NPCPosX, NPCPosY) Then
                 If UserAtacable(Userindex) And UserList(Userindex).flags.Ceguera = 0 Then
                     If BestTarget <> 0 Then
@@ -423,7 +423,7 @@ End Sub
 Private Sub KingMeleeAttack(NpcIndex)
     On Error GoTo ErrorHandler
     Dim headingloop As Byte
-    Dim nPos        As WorldPos
+    Dim nPos        As tWorldPos
     Dim Userindex   As Integer
     With Npclist(NpcIndex)
         For headingloop = eHeading.NORTH To eHeading.WEST
@@ -448,7 +448,7 @@ End Sub
 
 Private Sub KingReviveAlly(ByVal NpcIndex As Integer)
     Dim AllyIndex As Integer
-    Dim nPos      As WorldPos
+    Dim nPos      As tWorldPos
     With Npclist(NpcIndex)
         If .Pos.X = CenterPos.X Then
             If .Pos.Y = CenterPos.Y Then
@@ -516,14 +516,14 @@ Private Function HealerBestTarget(ByVal NpcIndex As Integer, ByRef Accion As Byt
     CounterStep = RandomNumber(0, 1)
     If CounterStep = 1 Then
         CounterStart = 1
-        CounterEnd = Areas.ConnGroups(CenterPos.Map).Count()
+        CounterEnd = modAreas.ConnGroups(CenterPos.Map).Count()
     Else
-        CounterStart = Areas.ConnGroups(CenterPos.Map).Count()
+        CounterStart = modAreas.ConnGroups(CenterPos.Map).Count()
         CounterEnd = 1
         CounterStep = -1
     End If
     For Counter = CounterStart To CounterEnd Step CounterStep
-        Userindex = Areas.ConnGroups(CenterPos.Map).Item(Counter)
+        Userindex = modAreas.ConnGroups(CenterPos.Map).Item(Counter)
         If UserAtacable(Userindex, False) Then
             PetIndex = CheckNearUserPets(NpcIndex, Userindex)
             If PetIndex <> 0 Then
@@ -648,14 +648,14 @@ Private Function SpellCasterBestTarget(ByVal NpcIndex As Integer, ByRef Accion A
     CounterStep = RandomNumber(0, 1)
     If CounterStep = 1 Then
         CounterStart = 1
-        CounterEnd = Areas.ConnGroups(CenterPos.Map).Count()
+        CounterEnd = modAreas.ConnGroups(CenterPos.Map).Count()
     Else
-        CounterStart = Areas.ConnGroups(CenterPos.Map).Count()
+        CounterStart = modAreas.ConnGroups(CenterPos.Map).Count()
         CounterEnd = 1
         CounterStep = -1
     End If
     For Counter = CounterStart To CounterEnd Step CounterStep
-        Userindex = Areas.ConnGroups(CenterPos.Map).Item(Counter)
+        Userindex = modAreas.ConnGroups(CenterPos.Map).Item(Counter)
         If InVisionRange(Userindex, NpcX, NpcY) Then
             If UserAtacable(Userindex, False) Then
                 With UserList(Userindex)
@@ -758,8 +758,8 @@ Private Sub DealWandDamage(ByVal NpcIndex As Integer, ByVal SpellIndex As Intege
     With Npclist(NpcIndex)
         X = .Pos.X
         Y = .Pos.Y
-        For Counter = 1 To Areas.ConnGroups(CenterPos.Map).Count()
-            Userindex = Areas.ConnGroups(CenterPos.Map).Item(Counter)
+        For Counter = 1 To modAreas.ConnGroups(CenterPos.Map).Count()
+            Userindex = modAreas.ConnGroups(CenterPos.Map).Item(Counter)
             If Userindex <> 0 Then
                 With UserList(Userindex)
                     If UserAtacable(Userindex, False, False) Then
@@ -845,14 +845,14 @@ Private Function SwordMasterBestTarget(ByVal NpcIndex As Integer) As Integer
     CounterStep = RandomNumber(0, 1)
     If CounterStep = 1 Then
         CounterStart = 1
-        CounterEnd = Areas.ConnGroups(CenterPos.Map).Count()
+        CounterEnd = modAreas.ConnGroups(CenterPos.Map).Count()
     Else
-        CounterStart = Areas.ConnGroups(CenterPos.Map).Count()
+        CounterStart = modAreas.ConnGroups(CenterPos.Map).Count()
         CounterEnd = 1
         CounterStep = -1
     End If
     For Counter = CounterStart To CounterEnd Step CounterStep
-        Userindex = Areas.ConnGroups(CenterPos.Map).Item(Counter)
+        Userindex = modAreas.ConnGroups(CenterPos.Map).Item(Counter)
         If InVisionRange(Userindex, NpcX, NpcY) Then
             If UserAtacable(Userindex) Then
                 If UserReachable(NpcIndex, Userindex) Then
@@ -901,7 +901,7 @@ End Sub
 Private Sub SwordMasterAttack(ByVal NpcIndex As Integer)
     On Error GoTo ErrorHandler
     Dim headingloop As Byte
-    Dim NpcPos      As WorldPos
+    Dim NpcPos      As tWorldPos
     Dim Userindex   As Integer
     With Npclist(NpcIndex)
         For headingloop = eHeading.NORTH To eHeading.WEST
@@ -953,14 +953,14 @@ Private Function ShooterBestTarget(ByVal NpcIndex As Integer) As Integer
     CounterStep = RandomNumber(0, 1)
     If CounterStep = 1 Then
         CounterStart = 1
-        CounterEnd = Areas.ConnGroups(CenterPos.Map).Count()
+        CounterEnd = modAreas.ConnGroups(CenterPos.Map).Count()
     Else
-        CounterStart = Areas.ConnGroups(CenterPos.Map).Count()
+        CounterStart = modAreas.ConnGroups(CenterPos.Map).Count()
         CounterEnd = 1
         CounterStep = -1
     End If
     For Counter = CounterStart To CounterEnd Step CounterStep
-        Userindex = Areas.ConnGroups(CenterPos.Map).Item(Counter)
+        Userindex = modAreas.ConnGroups(CenterPos.Map).Item(Counter)
         If InVisionRange(Userindex, NpcX, NpcY) Then
             If UserAtacable(Userindex) Then
                 If EsClaseMagica(Userindex) Then
@@ -1006,8 +1006,8 @@ Private Sub ShooterMove(ByVal NpcIndex As Integer, ByVal BestTarget As Integer)
         Else
             Dim Counter   As Long
             Dim Userindex As Integer
-            For Counter = 1 To Areas.ConnGroups(CenterPos.Map).Count()
-                Userindex = Areas.ConnGroups(CenterPos.Map).Item(Counter)
+            For Counter = 1 To modAreas.ConnGroups(CenterPos.Map).Count()
+                Userindex = modAreas.ConnGroups(CenterPos.Map).Item(Counter)
                 If InVisionRange(Userindex, CenterPos.X, CenterPos.Y, True) Then
                     If UserAtacable(Userindex) Then
                         With UserList(Userindex)
@@ -1053,14 +1053,14 @@ Private Function ThiefBestTarget(ByVal NpcIndex As Integer, ByRef Action As Byte
     CounterStep = RandomNumber(0, 1)
     If CounterStep = 1 Then
         CounterStart = 1
-        CounterEnd = Areas.ConnGroups(CenterPos.Map).Count()
+        CounterEnd = modAreas.ConnGroups(CenterPos.Map).Count()
     Else
-        CounterStart = Areas.ConnGroups(CenterPos.Map).Count()
+        CounterStart = modAreas.ConnGroups(CenterPos.Map).Count()
         CounterEnd = 1
         CounterStep = -1
     End If
     For Counter = CounterStart To CounterEnd Step CounterStep
-        Userindex = Areas.ConnGroups(CenterPos.Map).Item(Counter)
+        Userindex = modAreas.ConnGroups(CenterPos.Map).Item(Counter)
         If InVisionRange(Userindex, NpcX, NpcY) Then
             If UserAtacable(Userindex, False) Then
                 If UserReachable(NpcIndex, Userindex) Then
@@ -1159,7 +1159,7 @@ End Sub
 Private Function SnatchItem(ByVal NpcIndex As Integer, ByVal targetIndex As Integer, ByVal Slot As Byte) As Boolean
     On Error GoTo ErrorHandler
     Dim DropObj As obj
-    Dim nPos    As WorldPos
+    Dim nPos    As tWorldPos
     With UserList(targetIndex)
         DropObj.Amount = .Invent.Object(Slot).Amount
         DropObj.ObjIndex = .Invent.Object(Slot).ObjIndex
@@ -1210,9 +1210,9 @@ Private Sub ThiefTurnInvisible(ByVal NpcIndex As Integer, ByVal TurnVisible As B
     End With
 End Sub
 
-Private Function TargetClose(ByRef Pos As WorldPos) As Boolean
+Private Function TargetClose(ByRef Pos As tWorldPos) As Boolean
     Dim Userindex   As Integer
-    Dim nPos        As WorldPos
+    Dim nPos        As tWorldPos
     Dim headingloop As Byte
     For headingloop = eHeading.NORTH To eHeading.WEST
         nPos = Pos
@@ -1493,7 +1493,7 @@ Public Sub MuerePretoriano(ByVal NpcIndex As Integer)
             ClanMembersAlive = ClanMembersAlive - 1
             If ClanMembersAlive = 0 Then
                 If RespawnClan Then
-                    Dim NewSpawnPos As WorldPos
+                    Dim NewSpawnPos As tWorldPos
                     If CenterPos.X = LeftSpawnPos.X Then
                         NewSpawnPos = RightSpawnPos
                     Else

@@ -122,7 +122,7 @@ Sub AprobarUsuario(ByVal Userindex As Integer, ByVal CIndex As Byte)
             .Revisando = False
             .UltimaRevision = GetTickCount()
         End With
-        Call Protocol.WriteConsoleMsg(Userindex, "El control ha finalizado.", FontTypeNames.FONTTYPE_DIOS)
+        Call modProtocol.WriteConsoleMsg(Userindex, "El control ha finalizado.", FontTypeNames.FONTTYPE_DIOS)
     End With
 End Sub
  
@@ -155,7 +155,7 @@ Sub UsuarioInActivo(ByVal Userindex As Integer)
     If UserList(Userindex).CentinelaUsuario.centinelaIndex <> 0 Then
         Call LimpiarIndice(UserList(Userindex).CentinelaUsuario.centinelaIndex)
     End If
-    Call Protocol.WriteConsoleMsg(Userindex, "El centinela te ha ejecutado y encarcelado por Macro Inasistido.", FontTypeNames.FONTTYPE_DIOS)
+    Call modProtocol.WriteConsoleMsg(Userindex, "El centinela te ha ejecutado y encarcelado por Macro Inasistido.", FontTypeNames.FONTTYPE_DIOS)
     Dim ClearType As CentinelaUser
     UserList(Userindex).CentinelaUsuario = ClearType
     UserList(Userindex).CentinelaUsuario.CentinelaCheck = True
@@ -175,7 +175,7 @@ Function GenerarClave() As String
     GenerarClave = UCase$(GenerarClave)
 End Function
  
-Function DarPosicion(ByVal Userindex As Integer) As WorldPos
+Function DarPosicion(ByVal Userindex As Integer) As tWorldPos
     With UserList(Userindex)
         DarPosicion = .Pos
         DarPosicion.X = .Pos.X + 1

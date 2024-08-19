@@ -4,7 +4,7 @@ Begin VB.Form frmMain
    BackColor       =   &H00404040&
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Argentum Online"
-   ClientHeight    =   6975
+   ClientHeight    =   6855
    ClientLeft      =   1950
    ClientTop       =   1515
    ClientWidth     =   10215
@@ -25,7 +25,7 @@ Begin VB.Form frmMain
    MaxButton       =   0   'False
    MinButton       =   0   'False
    PaletteMode     =   1  'UseZOrder
-   ScaleHeight     =   6975
+   ScaleHeight     =   6855
    ScaleWidth      =   10215
    StartUpPosition =   2  'CenterScreen
    WindowState     =   1  'Minimized
@@ -102,7 +102,7 @@ Begin VB.Form frmMain
       Left            =   120
       Style           =   1  'Graphical
       TabIndex        =   12
-      Top             =   6480
+      Top             =   6360
       Width           =   4935
    End
    Begin VB.CheckBox chkServerHabilitado 
@@ -112,7 +112,7 @@ Begin VB.Form frmMain
       Height          =   255
       Left            =   120
       TabIndex        =   11
-      Top             =   4440
+      Top             =   4500
       Width           =   2775
    End
    Begin VB.TextBox txtNumUsers 
@@ -367,11 +367,11 @@ Begin VB.Form frmMain
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   615
+      Height          =   375
       Left            =   5400
       MousePointer    =   3  'I-Beam
       TabIndex        =   13
-      Top             =   6240
+      Top             =   6360
       Width           =   4335
    End
    Begin VB.Label CantUsuarios 
@@ -545,7 +545,7 @@ Private Sub HappyHourManager()
 End Sub
 
 Private Sub Auditoria_Timer()
-    Call mMainLoop.Auditoria
+    Call modMainLoop.Auditoria
 End Sub
 
 Private Sub AutoSave_Timer()
@@ -566,14 +566,14 @@ Private Sub AutoSave_Timer()
         Call SendData(SendTarget.ToAll, 0, PrepareMessageConsoleMsg("Worldsave en 1 minuto ...", FontTypeNames.FONTTYPE_SERVER))
         KillLog
     ElseIf Minutos >= MinutosWs Then
-        Call ES.DoBackUp
+        Call modES.DoBackUp
         Call aClon.VaciarColeccion
         Minutos = 0
     End If
     If MinsPjesSave = MinutosGuardarUsuarios - 1 Then
         Call SendData(SendTarget.ToAll, 0, PrepareMessageConsoleMsg("CharSave en 1 minuto ...", FontTypeNames.FONTTYPE_SERVER))
     ElseIf MinsPjesSave >= MinutosGuardarUsuarios Then
-        Call mdParty.ActualizaExperiencias
+        Call modParty.ActualizaExperiencias
         Call GuardarUsuarios
         MinsPjesSave = 0
     End If
@@ -607,8 +607,8 @@ Private Sub cmdApagarServidor_Click()
     If MsgBox("Realmente desea cerrar el servidor?", vbYesNo, "CIERRE DEL SERVIDOR!!!") = vbNo Then Exit Sub
     Me.MousePointer = 11
     frmStat.Show
-    Call ES.DoBackUp
-    Call mdParty.ActualizaExperiencias
+    Call modES.DoBackUp
+    Call modParty.ActualizaExperiencias
     Call GuardarUsuarios
     Unload frmMain
     Call CloseServer
@@ -694,7 +694,7 @@ End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
     On Error Resume Next
-    Call Statistics.DumpStatistics
+    Call modStatistics.DumpStatistics
     Call QuitarIconoSystray
     Call LimpiaWsApi
     Dim LoopC As Integer
@@ -709,7 +709,7 @@ Private Sub Form_Unload(Cancel As Integer)
 End Sub
 
 Private Sub GameTimer_Timer()
-    Call mMainLoop.GameTimer
+    Call modMainLoop.GameTimer
 End Sub
 
 Private Sub lblIp_Click()
@@ -787,15 +787,15 @@ Private Sub tLluviaEvent()
 End Sub
 
 Private Sub PacketResend_Timer()
-    Call mMainLoop.PacketResend
+    Call modMainLoop.PacketResend
 End Sub
 
 Private Sub TIMER_AI_Timer()
-    Call mMainLoop.TIMER_AI
+    Call modMainLoop.TIMER_AI
 End Sub
 
 Private Sub TimerEnviarDatosServer_Timer()
-    Call mMainLoop.TimerEnviarDatosServer
+    Call modMainLoop.TimerEnviarDatosServer
 End Sub
 
 Public Sub WinsockThread_WndProc(ByVal hWnd As Long, ByVal Msg As Long, ByVal wParam As Long, ByVal lParam As Long, ReturnVal As Long, DefCall As Boolean)

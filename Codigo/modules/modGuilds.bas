@@ -702,7 +702,7 @@ Public Sub SendGuildDetails(ByVal Userindex As Integer, ByRef GuildName As Strin
         For i = 1 To CANTIDADMAXIMACODEX
             codex(i - 1) = .GetCodex(i)
         Next i
-        Call Protocol.WriteGuildDetails(Userindex, GuildName, .Fundador, .GetFechaFundacion, .GetLeader, .GetURL, .CantidadDeMiembros, .EleccionesAbiertas, Alineacion2String(.Alineacion), .CantidadEnemys, .CantidadAllies, .PuntosAntifaccion & "/" & CStr(MAXANTIFACCION), codex, .GetDesc)
+        Call modProtocol.WriteGuildDetails(Userindex, GuildName, .Fundador, .GetFechaFundacion, .GetLeader, .GetURL, .CantidadDeMiembros, .EleccionesAbiertas, Alineacion2String(.Alineacion), .CantidadEnemys, .CantidadAllies, .PuntosAntifaccion & "/" & CStr(MAXANTIFACCION), codex, .GetDesc)
     End With
 End Sub
 
@@ -1117,11 +1117,11 @@ Public Sub SendDetallesPersonaje(ByVal Userindex As Integer, ByVal Personaje As 
     GI = UserList(Userindex).GuildIndex
     Personaje = UCase$(Personaje)
     If GI <= 0 Or GI > CANTIDADDECLANES Then
-        Call Protocol.WriteConsoleMsg(Userindex, "No perteneces a ningun clan.", FontTypeNames.FONTTYPE_INFO)
+        Call modProtocol.WriteConsoleMsg(Userindex, "No perteneces a ningun clan.", FontTypeNames.FONTTYPE_INFO)
         Exit Sub
     End If
     If Not m_EsGuildLeader(UserList(Userindex).Name, GI) Then
-        Call Protocol.WriteConsoleMsg(Userindex, "No eres el lider de tu clan.", FontTypeNames.FONTTYPE_INFO)
+        Call modProtocol.WriteConsoleMsg(Userindex, "No eres el lider de tu clan.", FontTypeNames.FONTTYPE_INFO)
         Exit Sub
     End If
     If InStrB(Personaje, "\") <> 0 Then
@@ -1140,7 +1140,7 @@ Public Sub SendDetallesPersonaje(ByVal Userindex As Integer, ByVal Personaje As 
             If Personaje = list(i) Then Exit For
         Next i
         If i > UBound(list()) Then
-            Call Protocol.WriteConsoleMsg(Userindex, "El personaje no es ni aspirante ni miembro del clan.", FontTypeNames.FONTTYPE_INFO)
+            Call modProtocol.WriteConsoleMsg(Userindex, "El personaje no es ni aspirante ni miembro del clan.", FontTypeNames.FONTTYPE_INFO)
             Exit Sub
         End If
     End If

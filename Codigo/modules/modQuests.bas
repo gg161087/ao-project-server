@@ -1,4 +1,4 @@
-Attribute VB_Name = "Quests"
+Attribute VB_Name = "modQuests"
 Option Explicit
 
 Public Const MAXUSERQUESTS As Integer = 15
