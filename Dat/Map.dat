@@ -4,5 +4,5 @@
 'y podria llegar a explotar la aplicacion
 
 [INIT]
-MapPath=\Mundos\Alkon\
+MapPath=\..\ao-project-resources\maps\
 NumMaps=317

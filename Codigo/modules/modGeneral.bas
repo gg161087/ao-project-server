@@ -172,7 +172,7 @@ Sub Main()
     frmMain.lblIp.Tag = IpPublicaServidor & ":" & Puerto
     MundoSeleccionado = GetVar(App.Path & "\Dat\Map.dat", "INIT", "MapPath")
     NombreServidor = GetVar(App.Path & "\Server.ini", "INIT", "Nombre")
-    frmMain.Caption = GetVersionOfTheServer() & " - Mundo Seleccionado: " & MundoSeleccionado & " - " & NombreServidor
+    frmMain.Caption = GetVersionOfTheServer() & " - " & NombreServidor
     DescripcionServidor = GetVar(App.Path & "\Server.ini", "INIT", "Descripcion")
     frmMain.txtRecordOnline.Text = RecordUsuariosOnline
     If Not ClanPretoriano(ePretorianType.Default).SpawnClan(MAPA_PRETORIANO, PRETORIANO_X, PRETORIANO_Y, ePretorianType.Default) Then

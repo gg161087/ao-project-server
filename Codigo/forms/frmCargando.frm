@@ -19,29 +19,30 @@ Begin VB.Form frmCargando
    ScaleWidth      =   440
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin InetCtlsObjects.Inet fetchVersion 
+      Left            =   2760
+      Top             =   960
+      _ExtentX        =   1005
+      _ExtentY        =   1005
+      _Version        =   393216
+      URL             =   "http://"
+   End
    Begin ComctlLib.ProgressBar cargar 
       Height          =   255
       Left            =   1354
       TabIndex        =   0
       Top             =   2544
       Width           =   3891
-      _ExtentX        =   6853
+      _ExtentX        =   6879
       _ExtentY        =   450
       _Version        =   327682
       Appearance      =   1
       Min             =   1e-4
    End
-   Begin InetCtlsObjects.Inet Inet1 
-      Left            =   3000
-      Top             =   1200
-      _ExtentX        =   1005
-      _ExtentY        =   1005
-      _Version        =   393216
-   End
    Begin VB.Label lblVersion 
       AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
-      Caption         =   " aa"
+      Caption         =   "v0.13.60"
       BeginProperty Font 
          Name            =   "Tahoma"
          Size            =   8.25
@@ -54,10 +55,10 @@ Begin VB.Form frmCargando
       ForeColor       =   &H00000000&
       Height          =   195
       Index           =   2
-      Left            =   120
+      Left            =   90
       TabIndex        =   2
-      Top             =   120
-      Width           =   735
+      Top             =   21
+      Width           =   720
    End
    Begin VB.Label lblCargando 
       Alignment       =   2  'Center
@@ -93,32 +94,38 @@ Private VersionNumberMaster As String
 Private VersionNumberLocal As String
 
 Private Sub Form_Load()
-    lblVersion(2).Caption = GetVersionOfTheServer()
-    Me.VerifyIfUsingLastVersion
+    VersionNumberLocal = GetVersionOfTheServer()
+    lblVersion(2).Caption = VersionNumberLocal
+    'Me.VerifyIfUsingLastVersion
 End Sub
 
 Function VerifyIfUsingLastVersion()
-    On Error Resume Next
+    On Error GoTo ErrorHandler
     If Not (CheckIfRunningLastVersion) Then
-        If MsgBox("Tu version no es la actual, Deseas ejecutar el actualizador?. - Tu version: " & VersionNumberLocal & " Ultima version: " & VersionNumberMaster & " -- Your version is not up to date, open the launcher to update? ", vbYesNo) = vbYes Then
+        If MsgBox("Tu version no es la actual, Deseas ejecutar el actualizador?. - Tu version: " & VersionNumberLocal & " Ultima version: " & VersionNumberMaster & " -- Your version is not up to date, open the launcher to update?", vbYesNo) = vbYes Then
             Call ShellExecute(Me.hWnd, "open", App.Path & "\Autoupdate.exe", "", "", 1)
             End
         End If
     End If
+    Exit Function
+ErrorHandler:
+    MsgBox "Error al verificar la versión: " & Err.description
 End Function
 
 Private Function CheckIfRunningLastVersion() As Boolean
+    On Error GoTo ErrorHandler
     Dim responseGithub As String
-    Dim JsonObject     As Object
+    Dim JsonObject As Object
     responseGithub = Inet1.OpenURL("https://api.github.com/repos/gg161087/ao-project-server/releases/latest")
-    If Len(responseGithub) = "" Then Exit Function
+    If Len(responseGithub) = 0 Then Exit Function
     Set JsonObject = modJSON.parse(responseGithub)
     VersionNumberMaster = JsonObject.Item("tag_name")
-    MsgBox (VersionNumberMaster)
-    VersionNumberLocal = GetVar(App.Path & "\Server.ini", "INIT", "VersionTagRelease")
     If VersionNumberMaster = VersionNumberLocal Then
         CheckIfRunningLastVersion = True
     Else
         CheckIfRunningLastVersion = False
     End If
+    Exit Function
+ErrorHandler:
+    MsgBox "Error al procesar la respuesta: " & Err.description
 End Function
