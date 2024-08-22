@@ -1,6 +1,5 @@
 VERSION 5.00
 Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0"; "comctl32.ocx"
-Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "MSINET.OCX"
 Begin VB.Form frmCargando 
    BackColor       =   &H00E0E0E0&
    BorderStyle     =   0  'None
@@ -19,14 +18,6 @@ Begin VB.Form frmCargando
    ScaleWidth      =   440
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
-   Begin InetCtlsObjects.Inet fetchVersion 
-      Left            =   2760
-      Top             =   960
-      _ExtentX        =   1005
-      _ExtentY        =   1005
-      _Version        =   393216
-      URL             =   "http://"
-   End
    Begin ComctlLib.ProgressBar cargar 
       Height          =   255
       Left            =   1354
@@ -96,7 +87,7 @@ Private VersionNumberLocal As String
 Private Sub Form_Load()
     VersionNumberLocal = GetVersionOfTheServer()
     lblVersion(2).Caption = VersionNumberLocal
-    'Me.VerifyIfUsingLastVersion
+    Me.VerifyIfUsingLastVersion
 End Sub
 
 Function VerifyIfUsingLastVersion()
@@ -114,17 +105,29 @@ End Function
 
 Private Function CheckIfRunningLastVersion() As Boolean
     On Error GoTo ErrorHandler
+    Dim httpRequest As Object
     Dim responseGithub As String
     Dim JsonObject As Object
-    responseGithub = Inet1.OpenURL("https://api.github.com/repos/gg161087/ao-project-server/releases/latest")
-    If Len(responseGithub) = 0 Then Exit Function
-    Set JsonObject = modJSON.parse(responseGithub)
-    VersionNumberMaster = JsonObject.Item("tag_name")
-    If VersionNumberMaster = VersionNumberLocal Then
-        CheckIfRunningLastVersion = True
-    Else
-        CheckIfRunningLastVersion = False
+    Set httpRequest = CreateObject("MSXML2.ServerXMLHTTP.6.0")
+    httpRequest.Open "GET", "https://api.github.com/repos/gg161087/ao-project-server/releases/latest", False
+    httpRequest.setRequestHeader "User-Agent", "VB6 App"
+    httpRequest.send
+    If httpRequest.Status <> 200 Then
+        MsgBox "Error: No se pudo conectar con GitHub. Estado de la solicitud: " & httpRequest.Status
+        Exit Function
     End If
+    responseGithub = httpRequest.responseText
+    If Len(responseGithub) = 0 Then
+        MsgBox "La respuesta está vacía. Verifique la URL y la configuración de la solicitud."
+        Exit Function
+    End If
+    Set JsonObject = modJSON.parse(responseGithub)
+    If JsonObject Is Nothing Then
+        MsgBox "Error al analizar el JSON."
+        Exit Function
+    End If
+    VersionNumberMaster = JsonObject.Item("tag_name")
+    CheckIfRunningLastVersion = (VersionNumberMaster = VersionNumberLocal)
     Exit Function
 ErrorHandler:
     MsgBox "Error al procesar la respuesta: " & Err.description
